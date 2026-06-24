@@ -1,0 +1,101 @@
+#' @title read_qiime2_feature_table
+#' @description
+#' Read a \href{https://qiime2.org}{qiime2} qza containing bin data
+#'
+#' @param qza file name, a qiime2 .qza file containing bin data.
+#' @param dir_path a string containing the name of directory where the artifacts
+#' files should be unpacked. Default = current working directory.
+#' @param remove_unpacked_artifacts boolean, When TRUE, the artifact's temporary
+#' directories will be removed after processing. Default = TRUE.
+#'
+#' @examples
+#'
+#' if (requireNamespace("h5lite", quietly = TRUE)) {
+#'   artifact <- read_qiime2_feature_table(strollur_example("table.qza"))
+#'
+#'   # access the bin assignment table
+#'
+#'   artifact$data
+#'
+#'   # to create a `strollur` object with your data
+#'
+#'   data <- new_dataset("my_data")
+#'
+#'   assign(data = data, table = artifact$data, type = "bin")
+#'   data
+#' } else {
+#'   message(paste(
+#'     "To use this functionality you have to install the",
+#'     "h5lite package."
+#'   ))
+#' }
+#'
+#' @return A list containing artifact
+#' @export
+read_qiime2_feature_table <- function(qza, dir_path = NULL,
+                                      remove_unpacked_artifacts = TRUE) {
+  if (!require_namespace("h5lite")) {
+    stop(paste(
+      "The h5lite R package is required to read HDF5 formatted",
+      "BIOM files. To install h5lite, run: pak::pak('h5lite')."
+    ))
+  }
+
+  # if no dir_path given, set to current working directory
+  if (is.null(dir_path)) {
+    dir_path <- getwd()
+  }
+
+  if (!dir.exists(dir_path)) {
+    # create it
+    dir.create(dir_path)
+  }
+
+  artifact_name <- sub("\\.[^.]+$", "", basename(qza))
+  tmp_path <- file.path(dir_path, artifact_name)
+
+  # unpack artifact - creates the artifact directory
+  artifact <- unpack_qiime2_artifact(qza, tmp_path)
+
+  data_dir <- paste0(
+    tmp_path, .Platform$file.sep,
+    artifact$uuid, .Platform$file.sep,
+    "data"
+  )
+
+  if (grepl("BIOMV", artifact$format)) {
+    # bin assignments
+    if (artifact$type == "FeatureTable[Frequency]") {
+      # read biom file
+      hdata <- read_biom(file.path(data_dir, "feature-table.biom"))
+
+      counts_matrix <- hdata$counts
+      sample_indices <- rep(seq_len(ncol(counts_matrix)), diff(counts_matrix@p))
+
+      artifact[["data"]] <- data.frame(
+        bin_name  = hdata$otus[counts_matrix@i + 1],
+        abundance = counts_matrix@x,
+        sample    = hdata$samples[sample_indices]
+      )
+
+      if (remove_unpacked_artifacts) {
+        unlink(tmp_path, recursive = TRUE)
+      }
+
+      return(artifact)
+    }
+  } else {
+    if (remove_unpacked_artifacts) {
+      unlink(tmp_path, recursive = TRUE)
+    }
+    .abort_incorrect_format("BIOMV210DirFmt", artifact$format)
+  }
+
+  # only get here if it's a "BIOMV210DirFmt" but not
+  # "FeatureTable[Frequency]" type
+  if (remove_unpacked_artifacts) {
+    unlink(tmp_path, recursive = TRUE)
+  }
+
+  list()
+}

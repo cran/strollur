@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Accessing Data</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Accessing Data</h1>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>The <em>strollur</em> package stores data associated with your
+Amplicon Sequence Analysis. This tutorial will familiarize you with some
+of the functions available in the <em>strollur</em> package. If you
+haven’t reviewed the “Getting Started” tuturial, we recommend you start
+there.</p>
+</div>
+<div id="loading-the-example-dataset" class="section level2">
+<h2>Loading the example dataset</h2>
+<p>We can use the <code>miseq_sop_example()</code> function to create a
+dataset object from the <a href="https://mothur.org/wiki/miseq_sop/">Miseq SOP Example</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>miseq <span class="ot">&lt;-</span> <span class="fu">miseq_sop_example</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Added 2425 sequences.</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence abundances.</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence taxonomies.</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bins.</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 asv bins.</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; Assigned 63 phylotype bins.</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; Assigned 19 samples to treatments.</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin taxonomies.</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin representative sequences.</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; Added metadata.</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; Added 2 resource references.</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; Added a contigs_report.</span></span></code></pre></div>
+<p>To print a summary of the miseq dataset, run the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>miseq</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; miseq_sop:</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 531 </span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 531 </span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2425 </span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2425 </span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 63 </span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 63 </span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2425 </span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+</div>
+<div id="accessing-your-data" class="section level2">
+<h2>Accessing Your Data</h2>
+<p>The <em>strollur</em> package includes several functions to access
+your sequence data.</p>
+<p><code>names()</code> - The names function is an extension of base R’s
+names function. It allows you to get the name of your dataset or the
+names of the sequences, bins, samples, treatments and reports in your
+dataset.</p>
+<p><code>count()</code> - The count function allows you to get the
+number of sequences, bins, samples and treatments in your dataset.</p>
+<p><code>abundance()</code> - The abundance function can be used to
+access the abundance data for sequences, bins, samples, and
+treatments.</p>
+<p><code>report()</code> - The report function can be used to access the
+various data associated with your dataset.</p>
+<p><code>summary()</code> - The summary function allows you to summarize
+sequences, your custom reports, and scrapped data.</p>
+<div id="names" class="section level3">
+<h3>names</h3>
+<p>The <code>names()</code> function allows you to get the names of
+sequences, bins, samples, treatments and reports. Let’s take a closer
+look at how use it.</p>
+<p>To get the name of the dataset, set the type parameter to
+‘dataset’:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;dataset&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;miseq_sop&quot;</span></span></code></pre></div>
+<p>To get the names of the sequences in your dataset, set the type
+parameter to ‘sequence’:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>all_sequences <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="fu">length</span>(all_sequences)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; [1] 2425</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">head</span>(all_sequences, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;M00967_43_000000000-A3JHG_1_2101_16474_12783&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; [2] &quot;M00967_43_000000000-A3JHG_1_1113_12711_3318&quot; </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; [3] &quot;M00967_43_000000000-A3JHG_1_2108_14707_9807&quot; </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; [4] &quot;M00967_43_000000000-A3JHG_1_1110_4126_16552&quot; </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; [5] &quot;M00967_43_000000000-A3JHG_1_2102_8408_13436&quot;</span></span></code></pre></div>
+<p>To get the names of the sequences <em>present</em> in sample
+‘F3D0’:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>include_f3d0 <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">length</span>(include_f3d0)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; [1] 309</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="fu">head</span>(include_f3d0, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;M00967_43_000000000-A3JHG_1_2103_25452_6018&quot; </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; [2] &quot;M00967_43_000000000-A3JHG_1_1109_13330_21597&quot;</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [3] &quot;M00967_43_000000000-A3JHG_1_1110_5315_13833&quot; </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [4] &quot;M00967_43_000000000-A3JHG_1_2104_26311_10309&quot;</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [5] &quot;M00967_43_000000000-A3JHG_1_1101_9620_19745&quot;</span></span></code></pre></div>
+<p>To get the names of the sequences <em>exclusive</em> to sample
+‘F3D0’:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>exclusive_f3d0 <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu">length</span>(exclusive_f3d0)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [1] 101</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">head</span>(exclusive_f3d0, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;M00967_43_000000000-A3JHG_1_2103_25452_6018&quot; </span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; [2] &quot;M00967_43_000000000-A3JHG_1_1101_9620_19745&quot; </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; [3] &quot;M00967_43_000000000-A3JHG_1_2109_17345_6668&quot; </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; [4] &quot;M00967_43_000000000-A3JHG_1_1114_14431_2336&quot; </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; [5] &quot;M00967_43_000000000-A3JHG_1_2106_14305_11884&quot;</span></span></code></pre></div>
+<p>To get the names of the bins in your dataset, you need to specify the
+bin_type. The miseq example contains 3 bin types: <em>otu</em>,
+<em>asv</em> and <em>phylotype</em>. Let’s find the bin names for the
+‘otu’ bin type.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>otu_bins <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="fu">length</span>(otu_bins)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; [1] 531</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">head</span>(otu_bins, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; &quot;Otu005&quot;</span></span></code></pre></div>
+<p>To get the names of the ‘otu’ bins that include sequences
+<em>present</em> in sample ‘F3D0’:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>include_f3d0 <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">length</span>(include_f3d0)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; [1] 191</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="fu">head</span>(include_f3d0, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; &quot;Otu005&quot;</span></span></code></pre></div>
+<p>To get the names of the “otu” bins that are <em>exclusive</em> to
+sample ‘F3D0’:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>exclusive_f3d0 <span class="ot">&lt;-</span> <span class="fu">names</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">TRUE</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">length</span>(exclusive_f3d0)</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; [1] 14</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="fu">head</span>(exclusive_f3d0, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Otu330&quot; &quot;Otu339&quot; &quot;Otu341&quot; &quot;Otu345&quot; &quot;Otu347&quot;</span></span></code></pre></div>
+<p>To get the names of the samples</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;sample&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;F3D0&quot;   &quot;F3D1&quot;   &quot;F3D141&quot; &quot;F3D142&quot; &quot;F3D143&quot; &quot;F3D144&quot; &quot;F3D145&quot; &quot;F3D146&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;F3D147&quot; &quot;F3D148&quot; &quot;F3D149&quot; &quot;F3D150&quot; &quot;F3D2&quot;   &quot;F3D3&quot;   &quot;F3D5&quot;   &quot;F3D6&quot;  </span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; [17] &quot;F3D7&quot;   &quot;F3D8&quot;   &quot;F3D9&quot;</span></span></code></pre></div>
+<p>To get the names of the treatments</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;treatment&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Early&quot; &quot;Late&quot;</span></span></code></pre></div>
+<p>To get the names of the custom reports</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;report&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;contigs_report&quot;</span></span></code></pre></div>
+</div>
+<div id="count" class="section level3">
+<h3>count</h3>
+<p>The <code>count()</code> function allows you to get the number of
+sequences, bins, samples and treatments in your dataset.</p>
+<p>To find the <em>total</em> number of sequences in the dataset, run
+the following:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [1] 113963</span></span></code></pre></div>
+<p>To find the number of <em>unique</em> sequences in the dataset, set
+‘distinct’ to TRUE:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">TRUE</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; [1] 2425</span></span></code></pre></div>
+<p>To get total number of sequences <em>present</em> in sample ‘F3D0’,
+you can set the samples parameter. Note, these sequences will be present
+in the sample but may be be present in other samples as well.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; [1] 6191</span></span></code></pre></div>
+<p>To get number of <em>unique</em> sequences <em>exclusive</em> to
+sample ‘F3D0’:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; [1] 101</span></span></code></pre></div>
+<p>To get the number of the bins in your dataset, you need to specify
+the bin_type. The miseq example contains 3 bin types: <em>otu</em>,
+<em>asv</em> and <em>phylotype</em>. Let’s find the number of bins for
+the ‘otu’ bin type.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt; [1] 531</span></span></code></pre></div>
+<p>To get number of <em>otu</em> bins with sequences <em>present</em> in
+sample ‘F3D0’: <em>Note these bins will have sequences from sample
+‘F3D0’ and may contain </em> <em>sequences from other samples as
+well.</em></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; [1] 191</span></span></code></pre></div>
+<p>To get number of <em>otu</em> bins <em>exclusive</em> to sample
+‘F3D0’: <em>Note these bins will have sequences from sample ‘F3D0’ and
+NO other samples </em> <em>will be present in the bins.</em></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">count</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>),</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="at">distinct =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; [1] 14</span></span></code></pre></div>
+<p>To get the number of samples in the dataset:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">count</span>(miseq, <span class="at">type =</span> <span class="st">&quot;sample&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co">#&gt; [1] 19</span></span></code></pre></div>
+<p>To get the number of treatments in the dataset:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">count</span>(miseq, <span class="at">type =</span> <span class="st">&quot;treatment&quot;</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+</div>
+<div id="abundance" class="section level3">
+<h3>abundance</h3>
+<p>Now that we are familiar with the <code>names()</code> and
+<code>count()</code> functions. Let’s learn how we can use the
+<code>abundance()</code> function. The abundance function can be used to
+access the abundance data for sequences, bins, samples, and treatments.
+It returns a data.frame containing the requested abundance data.</p>
+<p>To the total abundance for each sequence, set the type = ‘sequence’.
+This will return a 2 column data.frame containing sequence_names and
+abundances.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>sequence_abundance <span class="ot">&lt;-</span> <span class="fu">abundance</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>  <span class="at">by_sample =</span> <span class="cn">FALSE</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="fu">head</span>(sequence_abundance, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co">#&gt;                                   sequence_name abundance</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co">#&gt; 1  M00967_43_000000000-A3JHG_1_2101_16474_12783         1</span></span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="co">#&gt; 2   M00967_43_000000000-A3JHG_1_1113_12711_3318         1</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="co">#&gt; 3   M00967_43_000000000-A3JHG_1_2108_14707_9807         1</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="co">#&gt; 4   M00967_43_000000000-A3JHG_1_1110_4126_16552         1</span></span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="co">#&gt; 5   M00967_43_000000000-A3JHG_1_2102_8408_13436         1</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="co">#&gt; 6  M00967_43_000000000-A3JHG_1_1107_22580_21773         1</span></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a><span class="co">#&gt; 7  M00967_43_000000000-A3JHG_1_1108_14299_17220       191</span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a><span class="co">#&gt; 8   M00967_43_000000000-A3JHG_1_1114_8059_18290         1</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a><span class="co">#&gt; 9    M00967_43_000000000-A3JHG_1_2112_9811_9982         1</span></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a><span class="co">#&gt; 10  M00967_43_000000000-A3JHG_1_2103_25452_6018         1</span></span></code></pre></div>
+<p>To the abundance for each sequence parsed by sample, set by_sample =
+TRUE. This will return a 3 or 4 column data.frame containing
+sequence_names, abundances, samples and treatments (if assigned).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>sequence_abundance_by_sample <span class="ot">&lt;-</span> <span class="fu">abundance</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="at">by_sample =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="fu">head</span>(sequence_abundance_by_sample, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt;                                   sequence_name abundance sample treatment</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; 1  M00967_43_000000000-A3JHG_1_2101_16474_12783         1 F3D150      Late</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="co">#&gt; 2   M00967_43_000000000-A3JHG_1_1113_12711_3318         1 F3D142      Late</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co">#&gt; 3   M00967_43_000000000-A3JHG_1_2108_14707_9807         1   F3D3     Early</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co">#&gt; 4   M00967_43_000000000-A3JHG_1_1110_4126_16552         1   F3D8     Early</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="co">#&gt; 5   M00967_43_000000000-A3JHG_1_2102_8408_13436         1   F3D7     Early</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="co">#&gt; 6  M00967_43_000000000-A3JHG_1_1107_22580_21773         1   F3D3     Early</span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">#&gt; 7  M00967_43_000000000-A3JHG_1_1108_14299_17220        22 F3D146      Late</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; 8  M00967_43_000000000-A3JHG_1_1108_14299_17220        19 F3D147      Late</span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt; 9  M00967_43_000000000-A3JHG_1_1108_14299_17220        12 F3D148      Late</span></span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a><span class="co">#&gt; 10 M00967_43_000000000-A3JHG_1_1108_14299_17220         9 F3D149      Late</span></span></code></pre></div>
+<p>To get the total abundance of the bins in your dataset, you need to
+specify the bin_type. The miseq example contains 3 bin types:
+<em>otu</em>, <em>asv</em> and <em>phylotype</em>. Let’s find the
+abundance data of bins for the <em>otu</em> bin type. This will return a
+2 column data.frame containing bin_names and abundances.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>bin_abundance <span class="ot">&lt;-</span> <span class="fu">abundance</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  <span class="at">by_sample =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>)</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="fu">head</span>(bin_abundance, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="co">#&gt;    otu_id abundance</span></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a><span class="co">#&gt; 1  Otu001     12288</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a><span class="co">#&gt; 2  Otu002      8892</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="co">#&gt; 3  Otu003      7794</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a><span class="co">#&gt; 4  Otu004      7476</span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a><span class="co">#&gt; 5  Otu005      7450</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a><span class="co">#&gt; 6  Otu006      6621</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a><span class="co">#&gt; 7  Otu007      6304</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a><span class="co">#&gt; 8  Otu008      5337</span></span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a><span class="co">#&gt; 9  Otu009      3606</span></span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a><span class="co">#&gt; 10 Otu010      3061</span></span></code></pre></div>
+<p>To the abundance for each bin parsed by sample, set by_sample = TRUE.
+This will return a 3 or 4 column data.frame containing bin_names,
+abundances, samples and treatments (if assigned).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>bin_abundance_by_sample <span class="ot">&lt;-</span> <span class="fu">abundance</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  <span class="at">by_sample =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>)</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="fu">head</span>(bin_abundance_by_sample, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co">#&gt;    bin_name abundance sample treatment</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a><span class="co">#&gt; 1    Otu001       499   F3D0     Early</span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="co">#&gt; 2    Otu001       351   F3D1     Early</span></span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a><span class="co">#&gt; 3    Otu001       388 F3D141      Late</span></span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a><span class="co">#&gt; 4    Otu001       244 F3D142      Late</span></span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a><span class="co">#&gt; 5    Otu001       189 F3D143      Late</span></span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a><span class="co">#&gt; 6    Otu001       346 F3D144      Late</span></span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a><span class="co">#&gt; 7    Otu001       566 F3D145      Late</span></span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a><span class="co">#&gt; 8    Otu001       270 F3D146      Late</span></span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a><span class="co">#&gt; 9    Otu001      1316 F3D147      Late</span></span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a><span class="co">#&gt; 10   Otu001       750 F3D148      Late</span></span></code></pre></div>
+<p>To access the distribution of sequences across the samples in your
+dataset, set the type = ‘sample’. This will return a 2 column data.frame
+containing sample names and abundances.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">abundance</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sample&quot;</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>)</span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co">#&gt;    sample abundance</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">#&gt; 1    F3D0      6191</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="co">#&gt; 2    F3D1      4652</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="co">#&gt; 3  F3D141      4656</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#&gt; 4  F3D142      2423</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="co">#&gt; 5  F3D143      2403</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="co">#&gt; 6  F3D144      3449</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="co">#&gt; 7  F3D145      5532</span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="co">#&gt; 8  F3D146      3831</span></span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="co">#&gt; 9  F3D147     12430</span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="co">#&gt; 10 F3D148      9465</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="co">#&gt; 11 F3D149     10014</span></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="co">#&gt; 12 F3D150      4126</span></span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a><span class="co">#&gt; 13   F3D2     15686</span></span>
+<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a><span class="co">#&gt; 14   F3D3      5199</span></span>
+<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a><span class="co">#&gt; 15   F3D5      3469</span></span>
+<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a><span class="co">#&gt; 16   F3D6      6394</span></span>
+<span id="cb26-22"><a href="#cb26-22" tabindex="-1"></a><span class="co">#&gt; 17   F3D7      4055</span></span>
+<span id="cb26-23"><a href="#cb26-23" tabindex="-1"></a><span class="co">#&gt; 18   F3D8      4253</span></span>
+<span id="cb26-24"><a href="#cb26-24" tabindex="-1"></a><span class="co">#&gt; 19   F3D9      5735</span></span></code></pre></div>
+<p>To access the distribution of sequences across the treatments in your
+dataset, set the type = ‘treatment’. This will return a 2 column
+data.frame containing treatment names and abundances.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">abundance</span>(miseq, <span class="at">type =</span> <span class="st">&quot;treatment&quot;</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co">#&gt;   treatment abundance</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="co">#&gt; 1     Early     55634</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="co">#&gt; 2      Late     58329</span></span></code></pre></div>
+</div>
+<div id="report" class="section level3">
+<h3>report</h3>
+<p>The <code>report()</code> function allows you access you to access
+FASTA sequences, sequence and classification reports, bin assignments,
+sample assignments, metadata, sequence data reports, custom reports,
+resource references and scrapped data reports. It returns a data.frame
+containing the requested report data. Let’s look at some examples
+together.</p>
+<p>To get a report containing the sequences <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a> data,
+set the type = “fasta”. This will be a 2 or 3 column data.frame
+containing sequence names, sequence nucleotide strings, and comments (if
+provided).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>fasta_report <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;fasta&quot;</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>)</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="fu">head</span>(fasta_report, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="co">#&gt;                                  sequence_name</span></span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="co">#&gt; 1 M00967_43_000000000-A3JHG_1_2101_16474_12783</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a><span class="co">#&gt; 2  M00967_43_000000000-A3JHG_1_1113_12711_3318</span></span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a><span class="co">#&gt; 3  M00967_43_000000000-A3JHG_1_2108_14707_9807</span></span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a><span class="co">#&gt; 4  M00967_43_000000000-A3JHG_1_1110_4126_16552</span></span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a><span class="co">#&gt; 5  M00967_43_000000000-A3JHG_1_2102_8408_13436</span></span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                  sequence</span></span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a><span class="co">#&gt; 1 TAC--GG-AG-GAT--GCG-A-G-C-G-T-T--AT-C-CGTGAT--TT-A-T-T--GG-GT--TT-A-AA-GG-GT-GC-G-TA-GGC-G-G-A-CA-G-T-T-AA-G-T-C-A-G-C-G-G--TA-A-AA-TT-G-A-GA-GG--CT-C-AA-C-C-T-C-T-T-C--CC-G-C-CGTT-GAAAC-TG-A-TTGTC-TTGA-GT-GG-GC-GA-G-A---AG-T-A-TGTGGAATGCGTGGTGT-AGCGGT-GAAATGCATAG-AT-A-TC-AC-GC-AG-AACTCCGAT-TGCGAAGGCA------GCATA-CCG-G-CG-CC-C-A-ACTGACG-CTGA-AGCA-CGAAA-GCG-TGGGT-ATC-GAACAGG</span></span>
+<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a><span class="co">#&gt; 2 TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GGC-G-G-C-CA-T-G-C-AA-G-T-C-A-G-A-A-G--TG-A-AA-AC-C-C-GG-GG--CT-C-AA-C---C-C-TGG-G-AGT-G-C-TTTT-GAAAC-TG-T-GCGGC-TAGA-GT-GT-CG-GA-G-G---GG-T-A-AGTGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTA-CTG-G-AC-GA-T-G-ACTGACG-CTGA-GGCT-CGAAA-GCG-TGGGT-ATC-GAACAGG</span></span>
+<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a><span class="co">#&gt; 3 TAC--GG-AG-GAT--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-GG-C-G-C-AA-G-T-C-T-G-A-A-G--TG-A-AA-GC-C-C-GT-GG--CT-C-AA-C-C-G-C-G-G-A-ACC-G-C-TTTG-GAAAC-TG-C-GAGGC-TGGA-GT-GC-TG-GA-G-A---GG-T-A-AGCGGAATTCCTGGTGT-AGCGGT-GAAATGCGTAG-AT-A-TC-AG-GA-GG-AACACCGGT-GGCGAAGGCG------GCTTA-CTG-G-AC-AG-T-G-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-GAACAGG</span></span>
+<span id="cb28-16"><a href="#cb28-16" tabindex="-1"></a><span class="co">#&gt; 4 TAC--GG-AG-GAT--TCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-T-T--GG-GT--TT-A-AA-GG-GT-GC-G-TA-GGC-G-G-G-CT-G-T-T-AA-G-T-C-A-G-C-G-G--TC-A-AA-TG-T-C-GG-GG--CT-C-AA-C-C-C-C-G-G-C--CT-G-C-CGTT-GAAAC-TG-G-CGGCC-TCGA-GT-GG-GC-GA-G-A---AG-T-A-TGCGGAATGCGTGGTGT-AGCGGT-GAAATGCATAG-AT-A-TC-AC-GC-AG-AACTCCGAT-TGCGAAGGCA------GCATA-CCG-G-CG-CC-C-T-ACTGACG-CTGA-GGCA-CGAAA-GCG-TGGGT-ATC-GAACAGG</span></span>
+<span id="cb28-17"><a href="#cb28-17" tabindex="-1"></a><span class="co">#&gt; 5 TAC--GG-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GGC-G-G-C-AG-T-G-C-AA-G-T-C-A-G-A-A-G--TG-A-AA-GC-C-C-AA-GG--CT-C-AA-C---C-A-TGG-G-ACT-G-C-TTTT-GAAAC-TG-T-ACAGC-TAGA-TT-GC-AG-GA-G-A---GG-T-A-AGTGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTA-CTG-G-AC-TG-T-A-AATGACG-CTGA-GGCT-CGAAA-GCG-TGGGG-AGC-AAACAGG</span></span></code></pre></div>
+<p>If you want to take a closer look at the sequences, you can request a
+report containing the sequence names, starts, ends, lengths, ambiguous
+bases, longest homopolymers, and number of N’s. To get a sequence
+report, set type = “sequence”.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>sequence_report <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>)</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="fu">head</span>(sequence_report, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co">#&gt;                                  sequence_name start end length ambig</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="co">#&gt; 1 M00967_43_000000000-A3JHG_1_2101_16474_12783     1 375    253     0</span></span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a><span class="co">#&gt; 2  M00967_43_000000000-A3JHG_1_1113_12711_3318     1 375    253     0</span></span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a><span class="co">#&gt; 3  M00967_43_000000000-A3JHG_1_2108_14707_9807     1 375    253     0</span></span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a><span class="co">#&gt; 4  M00967_43_000000000-A3JHG_1_1110_4126_16552     1 375    252     0</span></span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a><span class="co">#&gt; 5  M00967_43_000000000-A3JHG_1_2102_8408_13436     1 375    253     0</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a><span class="co">#&gt;   longest_homopolymer num_n</span></span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a><span class="co">#&gt; 1                   4     0</span></span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a><span class="co">#&gt; 2                   5     0</span></span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="co">#&gt; 3                   4     0</span></span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a><span class="co">#&gt; 4                   4     0</span></span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a><span class="co">#&gt; 5                   5     0</span></span></code></pre></div>
+<p>The report function also allows you to access classification reports
+about your dataset. There are 2 types of classification reports:
+<em>sequence_taxonomy</em> and <em>bin_taxonomy</em>. To get a report
+about the sequence classifications, set type = “sequence_taxonomy”. This
+will create a 3 or 4 column report containing sequence names, taxonomic
+levels, taxons and confidence scores(if provided).</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>sequence_classification <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_taxonomy&quot;</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>)</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="fu">head</span>(sequence_classification, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="co">#&gt;                                   sequence_name level</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="co">#&gt; 1  M00967_43_000000000-A3JHG_1_2101_16474_12783     1</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="co">#&gt; 2  M00967_43_000000000-A3JHG_1_2101_16474_12783     2</span></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="co">#&gt; 3  M00967_43_000000000-A3JHG_1_2101_16474_12783     3</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a><span class="co">#&gt; 4  M00967_43_000000000-A3JHG_1_2101_16474_12783     4</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a><span class="co">#&gt; 5  M00967_43_000000000-A3JHG_1_2101_16474_12783     5</span></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a><span class="co">#&gt; 6  M00967_43_000000000-A3JHG_1_2101_16474_12783     6</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a><span class="co">#&gt; 7   M00967_43_000000000-A3JHG_1_1113_12711_3318     1</span></span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a><span class="co">#&gt; 8   M00967_43_000000000-A3JHG_1_1113_12711_3318     2</span></span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a><span class="co">#&gt; 9   M00967_43_000000000-A3JHG_1_1113_12711_3318     3</span></span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a><span class="co">#&gt; 10  M00967_43_000000000-A3JHG_1_1113_12711_3318     4</span></span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a><span class="co">#&gt;                             taxonomy confidence</span></span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a><span class="co">#&gt; 1                           Bacteria        100</span></span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a><span class="co">#&gt; 2                    &quot;Bacteroidetes&quot;        100</span></span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a><span class="co">#&gt; 3                      &quot;Bacteroidia&quot;         99</span></span>
+<span id="cb30-21"><a href="#cb30-21" tabindex="-1"></a><span class="co">#&gt; 4                    &quot;Bacteroidales&quot;         99</span></span>
+<span id="cb30-22"><a href="#cb30-22" tabindex="-1"></a><span class="co">#&gt; 5               &quot;Porphyromonadaceae&quot;         88</span></span>
+<span id="cb30-23"><a href="#cb30-23" tabindex="-1"></a><span class="co">#&gt; 6  &quot;Porphyromonadaceae&quot;_unclassified         88</span></span>
+<span id="cb30-24"><a href="#cb30-24" tabindex="-1"></a><span class="co">#&gt; 7                           Bacteria        100</span></span>
+<span id="cb30-25"><a href="#cb30-25" tabindex="-1"></a><span class="co">#&gt; 8                         Firmicutes        100</span></span>
+<span id="cb30-26"><a href="#cb30-26" tabindex="-1"></a><span class="co">#&gt; 9                         Clostridia        100</span></span>
+<span id="cb30-27"><a href="#cb30-27" tabindex="-1"></a><span class="co">#&gt; 10                     Clostridiales        100</span></span></code></pre></div>
+<p>To get the consensus taxonomies assigned to the bins in your dataset,
+you need to specify the bin_type. The miseq example contains 3 bin
+types: <em>otu</em>, <em>asv</em> and <em>phylotype</em>. Let’s find the
+consensus taxonomies of bins for the <em>otu</em> bin type.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>bin_classification <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_taxonomy&quot;</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>)</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="fu">head</span>(bin_classification, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="co">#&gt;    bin_name level                          taxonomy confidence</span></span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="co">#&gt; 1    Otu001     1                          Bacteria        100</span></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="co">#&gt; 2    Otu001     2                   &quot;Bacteroidetes&quot;        100</span></span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a><span class="co">#&gt; 3    Otu001     3                     &quot;Bacteroidia&quot;        100</span></span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a><span class="co">#&gt; 4    Otu001     4                   &quot;Bacteroidales&quot;        100</span></span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a><span class="co">#&gt; 5    Otu001     5              &quot;Porphyromonadaceae&quot;        100</span></span>
+<span id="cb31-13"><a href="#cb31-13" tabindex="-1"></a><span class="co">#&gt; 6    Otu001     6 &quot;Porphyromonadaceae&quot;_unclassified        100</span></span>
+<span id="cb31-14"><a href="#cb31-14" tabindex="-1"></a><span class="co">#&gt; 7    Otu002     1                          Bacteria        100</span></span>
+<span id="cb31-15"><a href="#cb31-15" tabindex="-1"></a><span class="co">#&gt; 8    Otu002     2                   &quot;Bacteroidetes&quot;        100</span></span>
+<span id="cb31-16"><a href="#cb31-16" tabindex="-1"></a><span class="co">#&gt; 9    Otu002     3                     &quot;Bacteroidia&quot;        100</span></span>
+<span id="cb31-17"><a href="#cb31-17" tabindex="-1"></a><span class="co">#&gt; 10   Otu002     4                   &quot;Bacteroidales&quot;        100</span></span></code></pre></div>
+<p>To get the sequence bin assignments for the <em>otu</em> bins, run
+the following:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>sequence_bin_assignments <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_bin_assignment&quot;</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>)</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="fu">head</span>(sequence_bin_assignments, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a><span class="co">#&gt;    otu_id                                       seq_id</span></span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="co">#&gt; 1  Otu001  M00967_43_000000000-A3JHG_1_1111_20933_6700</span></span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a><span class="co">#&gt; 2  Otu001  M00967_43_000000000-A3JHG_1_1113_17095_9759</span></span>
+<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a><span class="co">#&gt; 3  Otu001 M00967_43_000000000-A3JHG_1_1114_22144_24942</span></span>
+<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a><span class="co">#&gt; 4  Otu001   M00967_43_000000000-A3JHG_1_1112_5981_8948</span></span>
+<span id="cb32-12"><a href="#cb32-12" tabindex="-1"></a><span class="co">#&gt; 5  Otu001  M00967_43_000000000-A3JHG_1_2106_5509_18056</span></span>
+<span id="cb32-13"><a href="#cb32-13" tabindex="-1"></a><span class="co">#&gt; 6  Otu001 M00967_43_000000000-A3JHG_1_1112_18411_17052</span></span>
+<span id="cb32-14"><a href="#cb32-14" tabindex="-1"></a><span class="co">#&gt; 7  Otu001 M00967_43_000000000-A3JHG_1_1101_20262_22075</span></span>
+<span id="cb32-15"><a href="#cb32-15" tabindex="-1"></a><span class="co">#&gt; 8  Otu001 M00967_43_000000000-A3JHG_1_1114_13556_18457</span></span>
+<span id="cb32-16"><a href="#cb32-16" tabindex="-1"></a><span class="co">#&gt; 9  Otu001 M00967_43_000000000-A3JHG_1_2114_12634_10967</span></span>
+<span id="cb32-17"><a href="#cb32-17" tabindex="-1"></a><span class="co">#&gt; 10 Otu001 M00967_43_000000000-A3JHG_1_1102_18640_14309</span></span></code></pre></div>
+<p>To get the sample treatment assignments, set type =
+“sample_assignment”.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>sample_treatment_assignments <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sample_assignment&quot;</span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>)</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="fu">head</span>(sample_treatment_assignments, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="co">#&gt;   sample treatment</span></span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a><span class="co">#&gt; 1   F3D0     Early</span></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="co">#&gt; 2   F3D1     Early</span></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a><span class="co">#&gt; 3 F3D141      Late</span></span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a><span class="co">#&gt; 4 F3D142      Late</span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a><span class="co">#&gt; 5 F3D143      Late</span></span></code></pre></div>
+<p>If you assigned bin representative sequences, you can access the
+report by setting type = “bin_representative”. The miseq example
+includes bin representatives for the <em>otu</em> bins. Let’s take a
+look:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>otu_bin_representatives <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_representative&quot;</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>)</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="fu">head</span>(otu_bin_representatives, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="co">#&gt;   otu_names                          representative_name</span></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a><span class="co">#&gt; 1    Otu001 M00967_43_000000000-A3JHG_1_1108_14299_17220</span></span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a><span class="co">#&gt; 2    Otu002  M00967_43_000000000-A3JHG_1_1106_22705_6123</span></span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a><span class="co">#&gt; 3    Otu003  M00967_43_000000000-A3JHG_1_1101_15533_5293</span></span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a><span class="co">#&gt; 4    Otu004 M00967_43_000000000-A3JHG_1_1105_25642_17588</span></span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a><span class="co">#&gt; 5    Otu005  M00967_43_000000000-A3JHG_1_2102_7041_13746</span></span>
+<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                   representative_sequence</span></span>
+<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a><span class="co">#&gt; 1 TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-TG-T-G-C-AA-G-T-C-T-G-A-A-G--TG-A-AA-TG-C-C-GG-GG--CT-C-AA-C-C-C-C-G-G-A-ACT-G-C-TTTG-GAAAC-TG-T-ACAGC-TAGA-GT-GC-AG-GA-G-G---GG-T-G-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCGGT-GGCGAAGGCG------GCTCA-CTG-G-AC-TG-T-A-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-AAACAGG</span></span>
+<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a><span class="co">#&gt; 2 TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-CA-GAC-G-G-C-TG-T-G-C-AA-G-T-C-T-G-G-A-G--TG-A-AA-GG-C-G-GG-GG--CC-C-AA-C-C-C-C-C-G-G-ACT-G-C-TCTG-GAAAC-TG-T-AAAGC-TGGA-GT-GC-AG-GA-G-A---GG-T-A-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTA-CTG-G-AC-TG-C-A-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGT-ATC-GAACAGG</span></span>
+<span id="cb34-16"><a href="#cb34-16" tabindex="-1"></a><span class="co">#&gt; 3 TAC--GG-AG-GAT--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-GA-T-G-C-AA-G-T-C-T-G-A-A-G--TG-A-AA-GG-C-G-GG-GG--CC-C-AA-C-C-C-C-C-G-G-ACT-G-C-TTTG-GAAAC-TG-T-ATAGC-TGGA-GT-GC-AG-GA-G-A---GG-T-A-AGTGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTA-CTG-G-AC-TG-T-A-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-AAACAGG</span></span>
+<span id="cb34-17"><a href="#cb34-17" tabindex="-1"></a><span class="co">#&gt; 4 TAC--GT-AG-GTG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GC-GT-G-TA-GGC-G-G-G-AC-T-G-C-AA-G-T-C-A-G-A-T-G--TG-A-AA-CC-C-A-TG-GG--CT-C-AA-C-C-C-A-T-G-G-CCT-G-C-ATTT-GAAAC-TG-T-AGTTC-TTGA-GT-GA-TG-GA-G-A---GG-C-A-GGCGGAATTCCGTGTGT-AGCGGT-GAAATGCGTAG-AT-A-TA-CG-GA-GG-AACACCAGT-GGCGAAGGCG------GCCTG-CTG-G-AC-AT-T-A-ACTGACG-CTGA-GGCG-CGAAA-GCG-TGGGG-AGC-AAACAGG</span></span>
+<span id="cb34-18"><a href="#cb34-18" tabindex="-1"></a><span class="co">#&gt; 5 TAC--GT-AG-GGG--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TC-A-T-T--GG-GC--GT-A-AA-GC-GC-GC-G-CA-GGC-G-G-A-CT-C-A-T-AA-G-C-G-G-A-G-C-C--TT-T-AA-TC-T-T-GG-GG--CT-T-AA-C-C-T-C-A-A-G-T-C-G-G-GCCC-CGAAC-TG-T-GAGTC-TCGA-GT-GT-GG-TA-G-G---GG-A-A-GGCGGAATTCCCGGTGT-AGCGGT-GGAATGCGCAG-AT-A-TC-GG-GA-AG-AACACCGAT-GGCGAAGGCA------GCCTT-CTG-G-GC-CA-T-C-ACTGACG-CTGA-GGCG-CGAAA-GCT-AGGGG-AGC-AAACAGG</span></span></code></pre></div>
+<p>The miseq example contains a custum report. To access the custom
+reports, first let’s find the names.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;report&quot;</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;contigs_report&quot;</span></span></code></pre></div>
+<p>To access the custom contigs assembly report, set type =
+“contigs_report”.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>contigs_assembly_report <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;contigs_report&quot;</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>)</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="fu">head</span>(contigs_assembly_report, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a><span class="co">#&gt;                                           Name Length Overlap_Length</span></span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="co">#&gt; 1 M00967_43_000000000-A3JHG_1_2101_16474_12783    253            250</span></span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="co">#&gt; 2  M00967_43_000000000-A3JHG_1_1113_12711_3318    253            249</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a><span class="co">#&gt; 3  M00967_43_000000000-A3JHG_1_2108_14707_9807    253            249</span></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a><span class="co">#&gt; 4  M00967_43_000000000-A3JHG_1_1110_4126_16552    252            249</span></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a><span class="co">#&gt; 5  M00967_43_000000000-A3JHG_1_2102_8408_13436    253            249</span></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a><span class="co">#&gt;   Overlap_Start Overlap_End MisMatches Num_Ns Expected_Errors</span></span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a><span class="co">#&gt; 1             2         252         19      0      0.29461400</span></span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a><span class="co">#&gt; 2             2         251          0      0      0.00183396</span></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a><span class="co">#&gt; 3             2         251          0      0      0.00196774</span></span>
+<span id="cb36-16"><a href="#cb36-16" tabindex="-1"></a><span class="co">#&gt; 4             2         251          4      0      0.05629750</span></span>
+<span id="cb36-17"><a href="#cb36-17" tabindex="-1"></a><span class="co">#&gt; 5             2         251          0      0      0.00259554</span></span></code></pre></div>
+<p>To get the metadata associated with your dataset, set type =
+“metadata”.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">report</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;metadata&quot;</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>)</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a><span class="fu">head</span>(metadata, <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="co">#&gt;   sample days_post_wean</span></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a><span class="co">#&gt; 1   F3D0              0</span></span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a><span class="co">#&gt; 2   F3D1              1</span></span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a><span class="co">#&gt; 3 F3D141            141</span></span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a><span class="co">#&gt; 4 F3D142            142</span></span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a><span class="co">#&gt; 5 F3D143            143</span></span></code></pre></div>
+<p>To get the resource references associated with your dataset, set type
+= “resource_reference”.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">report</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;resource_reference&quot;</span></span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>)</span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a><span class="co">#&gt;                                 vendor                 name version</span></span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a><span class="co">#&gt; 1 Schloss Lab - University of Michigan  R phylotypr package   0.1.1</span></span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a><span class="co">#&gt; 2                                SILVA silva.bacteria.fasta  1.38.1</span></span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a><span class="co">#&gt;                         usage                                     note</span></span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a><span class="co">#&gt; 1 classification of sequences     classification using Bayesian method</span></span>
+<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a><span class="co">#&gt; 2      alignment of sequences alignment reference trimmed to V4 region</span></span>
+<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a><span class="co">#&gt;                 method_url                              documentation_url</span></span>
+<span id="cb38-12"><a href="#cb38-12" tabindex="-1"></a><span class="co">#&gt; 1 doi:10.1128/mra.01144-24                  https://mothur.org/phylotypr/</span></span>
+<span id="cb38-13"><a href="#cb38-13" tabindex="-1"></a><span class="co">#&gt; 2                       NA https://mothur.org/wiki/silva_reference_files/</span></span>
+<span id="cb38-14"><a href="#cb38-14" tabindex="-1"></a><span class="co">#&gt;                                          parameter</span></span>
+<span id="cb38-15"><a href="#cb38-15" tabindex="-1"></a><span class="co">#&gt; 1 kmer_size=8,num_bootstraps=100,min_confidence=80</span></span>
+<span id="cb38-16"><a href="#cb38-16" tabindex="-1"></a><span class="co">#&gt; 2                                               NA</span></span>
+<span id="cb38-17"><a href="#cb38-17" tabindex="-1"></a><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 citation</span></span>
+<span id="cb38-18"><a href="#cb38-18" tabindex="-1"></a><span class="co">#&gt; 1 @article{doi:10.1128/AEM.00062-07, author = {Qiong Wang and George M. Garrity and James M. Tiedje and James R. Cole}, title = {Naïve Bayesian Classifier for Rapid Assignment of rRNA Sequences into the New Bacterial Taxonomy}, journal = {Applied and Environmental Microbiology}, volume = {73}, number = {16}, pages = {5261-5267}, year = {2007}, doi = {10.1128/AEM.00062-07}, URL = {https://journals.asm.org/doi/abs/10.1128/aem.00062-07}, eprint = {https://journals.asm.org/doi/pdf/10.1128/aem.00062-07}}</span></span>
+<span id="cb38-19"><a href="#cb38-19" tabindex="-1"></a><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     NA</span></span>
+<span id="cb38-20"><a href="#cb38-20" tabindex="-1"></a><span class="co">#&gt;   creation_date</span></span>
+<span id="cb38-21"><a href="#cb38-21" tabindex="-1"></a><span class="co">#&gt; 1    2026-06-19</span></span>
+<span id="cb38-22"><a href="#cb38-22" tabindex="-1"></a><span class="co">#&gt; 2    2026-06-19</span></span></code></pre></div>
+<p>Lastly, if sequences or bins have been removed over the course of
+your analysis you can see a report about the scrapped data by setting
+type = “sequence_scrap” or “bin_scrap”. The miseq example does not
+include scrapped data, but let’s take a look at how to access it.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">report</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_scrap&quot;</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>)</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="co">#&gt; data frame with 0 columns and 0 rows</span></span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="fu">report</span>(</span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>  miseq,</span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_scrap&quot;</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a>)</span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="co">#&gt; data frame with 0 columns and 0 rows</span></span></code></pre></div>
+</div>
+<div id="summary" class="section level3">
+<h3>summary</h3>
+<p>The <code>summary()</code> function allows you to summarize
+sequences, custom reports, and scrapped data.</p>
+<p>To get a summary for our custom reports, first let’s find the report
+names.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">names</span>(miseq, <span class="at">type =</span> <span class="st">&quot;report&quot;</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;contigs_report&quot;</span></span></code></pre></div>
+<p>You can see we have a custom report so let get the summary by setting
+report_type = “contigs_report”.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">summary</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  miseq,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;report&quot;</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">&quot;contigs_report&quot;</span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>)</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a><span class="co">#&gt;               Length Overlap_Length Overlap_Start Overlap_End MisMatches Num_Ns</span></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a><span class="co">#&gt; Minimum:    250.0000       232.0000      0.000000    248.0000   0.000000      0</span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:  252.0000       246.0000      1.000000    250.0000   0.000000      0</span></span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a><span class="co">#&gt; 25%-tile:   252.0000       249.0000      2.000000    251.0000   0.000000      0</span></span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="co">#&gt; Median:     253.0000       249.0000      2.000000    251.0000   1.000000      0</span></span>
+<span id="cb41-11"><a href="#cb41-11" tabindex="-1"></a><span class="co">#&gt; 75%-tile:   253.0000       250.0000      2.000000    251.0000   5.000000      0</span></span>
+<span id="cb41-12"><a href="#cb41-12" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile: 254.0000       251.0000      4.000000    253.0000  26.000000      0</span></span>
+<span id="cb41-13"><a href="#cb41-13" tabindex="-1"></a><span class="co">#&gt; Maximum:    270.0000       255.0000     22.000000    256.0000 120.000000      0</span></span>
+<span id="cb41-14"><a href="#cb41-14" tabindex="-1"></a><span class="co">#&gt; Mean:       252.7575       249.1501      2.005361    251.1555   5.162474      0</span></span>
+<span id="cb41-15"><a href="#cb41-15" tabindex="-1"></a><span class="co">#&gt;             Expected_Errors</span></span>
+<span id="cb41-16"><a href="#cb41-16" tabindex="-1"></a><span class="co">#&gt; Minimum:         1.00000000</span></span>
+<span id="cb41-17"><a href="#cb41-17" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1.00000000</span></span>
+<span id="cb41-18"><a href="#cb41-18" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1.00000000</span></span>
+<span id="cb41-19"><a href="#cb41-19" tabindex="-1"></a><span class="co">#&gt; Median:          1.00000000</span></span>
+<span id="cb41-20"><a href="#cb41-20" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1.00000000</span></span>
+<span id="cb41-21"><a href="#cb41-21" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1.00000000</span></span>
+<span id="cb41-22"><a href="#cb41-22" tabindex="-1"></a><span class="co">#&gt; Maximum:         4.00000000</span></span>
+<span id="cb41-23"><a href="#cb41-23" tabindex="-1"></a><span class="co">#&gt; Mean:            0.07385095</span></span>
+<span id="cb41-24"><a href="#cb41-24" tabindex="-1"></a><span class="co">#&gt;               Length Overlap_Length Overlap_Start Overlap_End MisMatches Num_Ns</span></span>
+<span id="cb41-25"><a href="#cb41-25" tabindex="-1"></a><span class="co">#&gt; Minimum:    250.0000       232.0000      0.000000    248.0000   0.000000      0</span></span>
+<span id="cb41-26"><a href="#cb41-26" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:  252.0000       246.0000      1.000000    250.0000   0.000000      0</span></span>
+<span id="cb41-27"><a href="#cb41-27" tabindex="-1"></a><span class="co">#&gt; 25%-tile:   252.0000       249.0000      2.000000    251.0000   0.000000      0</span></span>
+<span id="cb41-28"><a href="#cb41-28" tabindex="-1"></a><span class="co">#&gt; Median:     253.0000       249.0000      2.000000    251.0000   1.000000      0</span></span>
+<span id="cb41-29"><a href="#cb41-29" tabindex="-1"></a><span class="co">#&gt; 75%-tile:   253.0000       250.0000      2.000000    251.0000   5.000000      0</span></span>
+<span id="cb41-30"><a href="#cb41-30" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile: 254.0000       251.0000      4.000000    253.0000  26.000000      0</span></span>
+<span id="cb41-31"><a href="#cb41-31" tabindex="-1"></a><span class="co">#&gt; Maximum:    270.0000       255.0000     22.000000    256.0000 120.000000      0</span></span>
+<span id="cb41-32"><a href="#cb41-32" tabindex="-1"></a><span class="co">#&gt; Mean:       252.7575       249.1501      2.005361    251.1555   5.162474      0</span></span>
+<span id="cb41-33"><a href="#cb41-33" tabindex="-1"></a><span class="co">#&gt;             Expected_Errors</span></span>
+<span id="cb41-34"><a href="#cb41-34" tabindex="-1"></a><span class="co">#&gt; Minimum:         1.00000000</span></span>
+<span id="cb41-35"><a href="#cb41-35" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1.00000000</span></span>
+<span id="cb41-36"><a href="#cb41-36" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1.00000000</span></span>
+<span id="cb41-37"><a href="#cb41-37" tabindex="-1"></a><span class="co">#&gt; Median:          1.00000000</span></span>
+<span id="cb41-38"><a href="#cb41-38" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1.00000000</span></span>
+<span id="cb41-39"><a href="#cb41-39" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1.00000000</span></span>
+<span id="cb41-40"><a href="#cb41-40" tabindex="-1"></a><span class="co">#&gt; Maximum:         4.00000000</span></span>
+<span id="cb41-41"><a href="#cb41-41" tabindex="-1"></a><span class="co">#&gt; Mean:            0.07385095</span></span></code></pre></div>
+<p>Lastly, if sequences or bins have been removed over the course of
+your analysis you can see a summary about the scrapped data by setting
+type = “scrap”. The miseq example does not include scrapped data, but
+let’s take a look at how to access it.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">summary</span>(miseq, <span class="at">type =</span> <span class="st">&quot;scrap&quot;</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="co">#&gt; data frame with 0 columns and 0 rows</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="co">#&gt; data frame with 0 columns and 0 rows</span></span></code></pre></div>
+</div>
+</div>
+<div id="sample-trees-and-sequence-trees" class="section level2">
+<h2>Sample Trees and Sequence Trees</h2>
+<p>strollur allows you to include trees relating the sequences and
+samples within your dataset. You can access and plot them using the
+following functions.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>miseq_sequence_tree <span class="ot">&lt;-</span> miseq<span class="sc">$</span><span class="fu">get_sequence_tree</span>()</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>miseq_sample_tree <span class="ot">&lt;-</span> miseq<span class="sc">$</span><span class="fu">get_sample_tree</span>()</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a><span class="co">#| fig.alt: &gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a><span class="co">#|   Plot of Miseq_SOP&#39;s sample relationship tree</span></span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">bg =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>ape<span class="sc">::</span><span class="fu">plot.phylo</span>(miseq_sample_tree,</span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>  <span class="at">no.margin =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">edge.color =</span> <span class="st">&quot;maroon&quot;</span>, <span class="at">tip.color =</span> <span class="st">&quot;navy&quot;</span></span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">par</span>(old_par)</span></code></pre></div>
+<p>Thanks for following along. Next, find out how to import your own
+data using the links below:</p>
+<ul>
+<li><a href="https://mothur.org/strollur/articles/General_Importing.html">General
+Importing</a></li>
+<li><a href="https://mothur.org/strollur/articles/Importing_from_mothur.html">Importing
+data from mothur</a></li>
+<li><a href="https://mothur.org/strollur/articles/Importing_from_qiime2.html">Importing
+data from qiime2</a></li>
+<li><a href="https://mothur.org/strollur/articles/Importing_from_phyloseq.html">Importing
+data from phyloseq</a></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

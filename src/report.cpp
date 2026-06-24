@@ -1,0 +1,285 @@
+#include "../inst/include/strollur.h"
+#include "dataset.h"
+
+/******************************************************************************/
+Report::Report() {
+    sequence_name = "";
+    sequence_name_col = -1;
+    hasStr = false;
+    hasInt = false;
+    hasNum = false;
+    hasLog = false;
+    hasColumnNames = false;
+    hasReport = false;
+    numRows = 0;
+}
+/******************************************************************************/
+void Report::clear() {
+    sequence_name = "";
+    sequence_name_col = -1;
+    hasStr = false;
+    hasInt = false;
+    hasNum = false;
+    hasLog = false;
+    hasColumnNames = false;
+    hasReport = false;
+    numRows = 0;
+
+    columnNames.clear();
+    strColumns.clear();
+    intColumns.clear();
+    numColumns.clear();
+    logColumns.clear();
+}
+/******************************************************************************/
+void Report::addReport(const Rcpp::DataFrame& report) {
+    clear();
+
+    vector<string> cnames;
+
+    // save columnNames
+    if (report.hasAttribute("names")) {
+        cnames = Rcpp::as<vector<string>>(report.attr("names"));
+        hasColumnNames = true;
+    }
+
+    // save sequence_name
+    if (report.hasAttribute("sequence_name")) {
+        sequence_name = Rcpp::as<string>(report.attr("sequence_name"));
+    }
+
+    numRows = report.nrow();
+
+    // save columns
+    for (int i = 0; i < report.size(); i++) {
+
+        bool addColName = true;
+
+        // vector<int>
+        if (TYPEOF(report[i]) == INTSXP) {
+            intColumns[i] = Rcpp::as<vector<int> >(report[i]);
+            hasInt = true;
+        }
+        // vector<double>
+        else if (TYPEOF(report[i]) == REALSXP) {
+            numColumns[i] = Rcpp::as<vector<double> >(report[i]);
+            hasNum = true;
+        }
+        // vector<string>
+        else if (TYPEOF(report[i]) == STRSXP) {
+            strColumns[i] = Rcpp::as<vector<string> >(report[i]);
+            if (hasColumnNames) {
+                if (sequence_name == cnames[i]) {
+                    sequence_name_col = i;
+                }
+            }
+            hasStr = true;
+        }
+        // vector<bool>
+        else if (TYPEOF(report[i]) == LGLSXP) {
+            logColumns[i] = Rcpp::as<vector<bool> >(report[i]);
+            hasLog = true;
+        }else{
+            addColName = false;
+        }
+
+        // only save column names of columns we are saving
+        if (addColName) {
+            hasReport = true;
+            if (hasColumnNames) {
+                columnNames[i] = cnames[i];
+            }else{
+                columnNames[i] = toString(i);
+            }
+        }
+    }
+}
+/******************************************************************************/
+Rcpp::DataFrame Report::getReport(const set<string>& datasetNames) {
+
+    Rcpp::DataFrame data = Rcpp::DataFrame::create();
+
+    pruneReport(datasetNames);
+
+    if (hasReport) {
+        // assemble dataframe in order
+        for (auto itCol = columnNames.begin(); itCol != columnNames.end(); itCol++) {
+            bool foundNext = false;
+
+            if (hasStr) {
+                foundNext = addNextColumn(data, strColumns, itCol->first);
+            }
+
+            if (hasInt && !foundNext) {
+                foundNext = addNextColumn(data, intColumns, itCol->first);
+            }
+
+            if (hasNum && !foundNext) {
+                foundNext = addNextColumn(data, numColumns, itCol->first);
+            }
+
+            if (hasLog && !foundNext) {
+                foundNext = addNextColumn(data, logColumns, itCol->first);
+            }
+        }
+
+        if (hasColumnNames) {
+            data.attr("names") = getValues(columnNames);
+        }
+
+        if (!sequence_name.empty()) {
+            data.attr("sequence_name") = sequence_name;
+        }
+    }
+
+    return data;
+}
+/******************************************************************************/
+bool Report::operator==(const Report& report) const {
+
+    if (columnNames != report.columnNames) {
+        return false;
+    }else if (sequence_name != report.sequence_name) {
+        return false;
+    }else if (sequence_name_col != report.sequence_name_col) {
+        return false;
+    }else if (numRows != report.numRows) {
+        return false;
+    }else if (hasStr != report.hasStr) {
+        return false;
+    }else if (hasInt != report.hasInt) {
+        return false;
+    }else if (hasNum != report.hasNum) {
+        return false;
+    }else if (hasLog != report.hasLog) {
+        return false;
+    }else if (hasColumnNames != report.hasColumnNames) {
+        return false;
+    }else if (strColumns != report.strColumns) {
+        return false;
+    }else if (intColumns != report.intColumns) {
+        return false;
+    }else if (logColumns != report.logColumns) {
+        return false;
+    }
+
+    return isMap2FloatingPointVectorEqual(numColumns, report.numColumns);
+}
+/******************************************************************************/
+void Report::pruneReport(set<string> datasetNames) {
+
+    // metadata case
+    if (datasetNames.size() == 0) { return; }
+
+    if (datasetNames.size() > strColumns[sequence_name_col].size()) {
+        // error, report is missing names. This can happen if you add sequences
+        // after adding a report
+        string message = "Your dataset contains more sequences than your report";
+        message += ", removing report.";
+        Rcpp::Rcout << endl << message << endl;
+        clear();
+    }else {
+
+        // create a boolean filter, assume guilty
+        vector<bool> filter(numRows, false);
+
+        vector<string> reportSequenceNames = strColumns[sequence_name_col];
+
+        for (size_t i = 0; i < reportSequenceNames.size(); i++) {
+            // if the name is in the dataset, set filter pos to true
+            if (datasetNames.count(reportSequenceNames[i]) != 0) {
+                filter[i] = true;
+            }
+        }
+
+        // sanity check
+        const int trueCount = count(filter.begin(), filter.end(), true);
+
+        if (trueCount < static_cast<int>(datasetNames.size())) {
+            // error, report is missing names. This can happen if you add sequences
+            // after adding a report
+            string message = "Your dataset contains more sequences than your report";
+            message += ", removing report.";
+            Rcpp::Rcout << endl << message << endl;
+            clear();
+            return;
+        }
+
+        // filter all columns
+        numRows = trueCount;
+        if (hasInt) {
+            for (auto it = intColumns.begin(); it != intColumns.end(); it++) {
+                it->second = select(it->second, filter);
+            }
+        }
+        if (hasStr) {
+            for (auto it = strColumns.begin(); it != strColumns.end(); it++) {
+                it->second = select(it->second, filter);
+            }
+        }
+        if (hasNum) {
+            for (auto it = numColumns.begin(); it != numColumns.end(); it++) {
+                it->second = select(it->second, filter);
+            }
+        }
+        if (hasLog) {
+            for (auto it = logColumns.begin(); it != logColumns.end(); it++) {
+                it->second = select(it->second, filter);
+            }
+        }
+    }
+}
+
+/******************************************************************************/
+void Report::sortAlpha() {
+
+    if (sequence_name_col != -1) {
+
+        // sort table by sequence name column
+        vector<string> seqNames = strColumns[sequence_name_col];
+        const auto seqNameSize = static_cast<unsigned>(seqNames.size());
+        vector<orderAlpha> sortedVector(seqNameSize);
+
+        for (unsigned i = 0; i < seqNameSize; i++) {
+            sortedVector[i].index = i;
+            sortedVector[i].name = seqNames[i];
+        }
+
+        sort(sortedVector.begin(), sortedVector.end(), compareAlpha);
+
+        // names, seqIndex
+        std::vector<unsigned> order(seqNameSize, 0);
+        for (size_t i = 0; i < sortedVector.size(); i++) {
+            order[i] = sortedVector[i].index;
+            seqNames[i] = sortedVector[i].name;
+        }
+        strColumns[sequence_name_col] = seqNames;
+
+        if (hasStr) {
+            for (auto it = strColumns.begin(); it != strColumns.end(); it++) {
+                if (it->first != sequence_name_col) {
+                    applyOrder(it->second, order);
+                }
+            }
+        }
+
+        if (hasInt) {
+            for (auto it = intColumns.begin(); it != intColumns.end(); it++) {
+                applyOrder(it->second, order);
+            }
+        }
+
+        if (hasNum) {
+            for (auto it = numColumns.begin(); it != numColumns.end(); it++) {
+                applyOrder(it->second, order);
+            }
+        }
+
+        if (hasLog) {
+            for (auto it = logColumns.begin(); it != logColumns.end(); it++) {
+                applyOrder(it->second, order);
+            }
+        }
+    }
+}
+/******************************************************************************/

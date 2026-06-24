@@ -1,0 +1,214 @@
+#' @title write_mothur
+#' @description
+#' The write_mothur function will write various
+#' \href{https://mothur.org/wiki/tags/#file_types}{file types} for use with
+#' mothur.
+#'
+#' @references
+#'  Schloss,P.D., Westcott,S.L., Ryabin,T., Hall,J.R., Hartmann,M.,
+#'  Hollister,E.B., Lesniewski,R.A., Oakley,B.B., Parks,D.H., Robinson,C.J.,
+#'  Sahl,J.W., Stres,B., Thallinger,G.G., Van Horn,D.J. and Weber,C.F. (2009),
+#'  Introducing mothur: Open-source, platform-independent, community-supported
+#'  software for describing and comparing microbial communities. Applied and
+#'  Environmental Microbiology 75:7537-7541. <doi:10.1128/AEM.01541-09>
+#'
+#' @param data A `strollur` object
+#' @param dir_path a string containing the name of directory where the files
+#' should be written. Default = current working directory.
+#' @param tags a vector of strings containing the items you wish to write
+#' Options are 'sequence_data', 'bin_data', 'metadata',
+#' 'resource_reference', 'sequence_tree', 'sample_tree' and 'report'.
+#'  By default, everything is written to files.
+#'
+#' @param compress boolean, Default = TRUE.
+#'
+#' @examples
+#'
+#' miseq <- miseq_sop_example()
+#' files <- write_mothur(miseq, tempdir(), compress = FALSE)
+#'
+#' @return a vector of file names
+#' @export
+write_mothur <- function(data, dir_path = NULL, compress = TRUE, tags = NULL) {
+  # check type
+  if (!inherits(data, "strollur")) {
+    stop("data must be a strollur object.")
+  }
+
+  dataset_name <- names(data, "dataset")
+
+  if (dataset_name == "") {
+    dataset_name <- paste0("strollur.", as.integer(Sys.time()),
+      collapse = ""
+    )
+  }
+
+  # if no dir given, set to current working directory
+  if (is.null(dir_path)) {
+    dir_path <- paste0(getwd(), .Platform$file.sep, dataset_name,
+      collapse = ""
+    )
+  }
+
+  if (!dir.exists(dir_path)) {
+    # create it
+    dir.create(dir_path)
+  }
+
+  # Interpret the result
+  if (file.access(dir_path, mode = 2) != 0) {
+    .abort_not_writable(dir_path)
+  }
+
+  outputs <- c()
+
+  # TODO
+  ht <- !(is.null(tags))
+  wrote_design <- FALSE
+  wrote_count <- FALSE
+
+  # write sequence_data, fasta, count, taxonomy
+  if (!ht || ("sequence_data" %in% tags)) {
+    filename <- paste0(dataset_name, ".fasta", collapse = "")
+    output <- write_fasta(data, file.path(dir_path, filename))
+
+    # will return "no_sequence_data" if no fasta data
+    if (output != "no_sequence_data") {
+      outputs <- c(outputs, output)
+    }
+
+    filename <- paste0(dataset_name, ".taxonomy", collapse = "")
+    output <- write_taxonomy(data, file.path(dir_path, filename))
+
+    # will return "no_sequence_taxonomy" if no classification data
+    if (output != "no_sequence_taxonomy") {
+      outputs <- c(outputs, output)
+    }
+
+    filename <- paste0(dataset_name, ".count_table", collapse = "")
+    output <- write_mothur_count(data, file.path(dir_path, filename))
+
+    # will return "no_sequence_data" if no sequence abundance data
+    if (output != "no_sequence_data") {
+      outputs <- c(outputs, output)
+      wrote_count <- TRUE
+    }
+
+    if (count(data, "treatment") != 0) {
+      filename <- paste0(dataset_name, ".design", collapse = "")
+      output <- write_mothur_design(data, file.path(dir_path, filename))
+      outputs <- c(outputs, output)
+      wrote_design <- TRUE
+    }
+  }
+
+  # write bin_data
+  if (!ht || ("bin_data" %in% tags)) {
+    output <- write_mothur_list(data, file.path(dir_path, dataset_name))
+    outputs <- c(outputs, output)
+
+    # write count file, if needed
+    if ((length(output) != 0) && !wrote_count) {
+      filename <- paste0(dataset_name, ".count_table", collapse = "")
+      output <- write_mothur_count(data, file.path(dir_path, filename))
+      outputs <- c(outputs, output)
+    }
+
+    output <- write_mothur_shared(data, file.path(dir_path, dataset_name))
+    outputs <- c(outputs, output)
+
+    output <- write_mothur_cons_taxonomy(data, file.path(
+      dir_path,
+      dataset_name
+    ))
+    outputs <- c(outputs, output)
+
+    if ((count(data, "treatment") != 0) && !wrote_design) {
+      filename <- paste0(dataset_name, ".design", collapse = "")
+      output <- write_mothur_design(data, file.path(dir_path, filename))
+      outputs <- c(outputs, output)
+      wrote_design <- TRUE
+    }
+  }
+
+  if (!ht || ("metadata" %in% tags)) {
+    metadata <- xdev_report(data, type = "metadata")
+
+    if (nrow(metadata) != 0) {
+      filename <- file.path(
+        dir_path,
+        paste0(dataset_name, ".metadata", collapse = "")
+      )
+      readr::write_tsv(metadata, filename)
+      outputs <- c(outputs, filename)
+    }
+  }
+
+  if (!ht || ("report" %in% tags)) {
+    report_types <- xdev_names(data, type = "report")
+
+    if (length(report_types) != 0) {
+      for (type in report_types) {
+        filename <- file.path(
+          dir_path,
+          paste0(dataset_name, ".", type, collapse = "")
+        )
+
+        readr::write_tsv(xdev_report(data, type = type), filename)
+        outputs <- c(outputs, filename)
+      }
+    }
+  }
+
+  if (!ht || ("resource_reference" %in% tags)) {
+    references <- xdev_report(data, type = "resource_reference")
+
+    if (nrow(references) != 0) {
+      filename <- file.path(
+        dir_path,
+        paste0(dataset_name, ".resource_reference",
+          collapse = ""
+        )
+      )
+      readr::write_tsv(references, filename)
+      outputs <- c(outputs, filename)
+    }
+  }
+
+  if (!ht || ("sample_tree" %in% tags)) {
+    sample_tree <- data$get_sample_tree()
+
+    if (!is.null(sample_tree)) {
+      filename <- file.path(
+        dir_path,
+        paste0(dataset_name, ".sample.tree",
+          collapse = ""
+        )
+      )
+      ape::write.tree(sample_tree, file = filename)
+      outputs <- c(outputs, filename)
+    }
+  }
+
+  if (!ht || ("sequence_tree" %in% tags)) {
+    sequence_tree <- data$get_sequence_tree()
+
+    if (!is.null(sequence_tree)) {
+      filename <- file.path(
+        dir_path,
+        paste0(dataset_name, ".sequence.tree", collapse = "")
+      )
+      ape::write.tree(sequence_tree, file = filename)
+      outputs <- c(outputs, filename)
+    }
+  }
+
+  if (compress) {
+    # compress the files
+    filename <- paste0(dir_path, ".zip", collapse = "")
+    utils::zip(zipfile = filename, files = dir_path)
+    unlink(dir_path, recursive = TRUE)
+  }
+
+  outputs
+}
