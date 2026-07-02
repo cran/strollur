@@ -79,7 +79,8 @@ str(metadata)
 add(
   data,
   table = metadata,
-  type = "metadata"
+  type = "report",
+  report_type = "metadata"
 )
 
 ## -----------------------------------------------------------------------------

@@ -103,7 +103,7 @@ metadata <- read_qiime2_metadata(
 )
 
 ## -----------------------------------------------------------------------------
-add(my_data, table = metadata, type = "metadata")
+add(my_data, table = metadata, type = "report", report_type = "metadata")
 
 ## -----------------------------------------------------------------------------
 my_data

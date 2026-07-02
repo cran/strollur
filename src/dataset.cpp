@@ -58,7 +58,6 @@ Dataset::Dataset(const Dataset& dataset) {
         binTables.push_back(table);
     }
 
-    metadata = dataset.metadata;
     reports = dataset.reports;
 }
 /******************************************************************************/
@@ -113,7 +112,6 @@ void Dataset::clear() {
         binTables.clear();
         references.clear();
         reports.clear();
-        metadata.clear();
 }
 /******************************************************************************/
 Rcpp::List Dataset::exportDataset(){
@@ -204,11 +202,6 @@ Rcpp::List Dataset::exportDataset(){
         resultsLabels.push_back("resource_reference");
     }
 
-    if (metadata.hasReport) {
-        results.push_back(getMetadata());
-        resultsLabels.push_back("metadata");
-    }
-
     if (!reports.empty()) {
         for (auto it = reports.begin(); it != reports.end(); it++) {
             results.push_back(getReports(it->first));
@@ -255,10 +248,6 @@ void Dataset::addReport(Rcpp::DataFrame& report, const string& type) {
         it->second.addReport(report);
     }
     sortNeeded = true;
-}
-/******************************************************************************/
-void Dataset::addMetadata(const Rcpp::DataFrame& data){
-    metadata.addReport(data);
 }
 /******************************************************************************/
 double Dataset::addSequences(const vector<string>& n,
@@ -523,7 +512,7 @@ double Dataset::assignSequenceTaxonomyTidy(const vector<string>& sequence_names,
                 assembledTax = taxes[i] + "(" + toString(confidences[i]) + ");";
             }
             else{
-                string message = "[WARNING]: " + sequence_names[i] + " is not in your dataset,";
+                string message = sequence_names[i] + " is not in your dataset,";
                 message += " ignoring.";
                 Rcpp::Rcout << endl << message << endl;
                 index = -1;
@@ -574,7 +563,7 @@ double Dataset::assignSequenceTaxonomy(const vector<string>& n,
             // update taxonomy
             taxonomies[index] = t[i];
         }else{
-            string message = "[WARNING]: " + n[i] + " is not in your dataset,";
+            string message = n[i] + " is not in your dataset,";
             message += " ignoring.";
             Rcpp::Rcout << endl << message << endl;
         }
@@ -797,10 +786,6 @@ const Rcpp::DataFrame Dataset::getList(const string& type) {
     return Rcpp::DataFrame::create();
 }
 /******************************************************************************/
-Rcpp::DataFrame Dataset::getMetadata() {
-    return metadata.getReport(nullSet);
-}
-/******************************************************************************/
 vector<string> Dataset::getListVector(const string& type) const{
     if (hasBinTable(type)) {
         return binTables[getBinTableIndex(type)].getListVector(names);
@@ -936,7 +921,11 @@ Rcpp::DataFrame Dataset::getReports(const string& type) {
         const auto it = reports.find(type);
 
         if (it != reports.end()) {
-            return it->second.getReport(toSet(getSequenceNames()));
+            if (it->second.hasSequenceNameColumn()) {
+                return it->second.getReport(toSet(getSequenceNames()));
+            }else {
+                return it->second.getReport(nullSet);
+            }
         }else{
             string message = "Your dataset does not include a report named ";
             message += type + ", ignoring request.";
@@ -1430,10 +1419,6 @@ bool Dataset::isEqual(Dataset& dataset) {
         string message = "The strollur objects include different report data.";
         Rcpp::Rcout << endl << message << endl << endl;
         return false;
-    }else if (metadata != dataset.metadata) {
-        string message = "The strollur objects include different metadata.";
-        Rcpp::Rcout << endl << message << endl << endl;
-        return false;
     }else if (trashCodes != dataset.trashCodes) {
         string message = "The strollur objects include different sequence trash codes.";
         Rcpp::Rcout << endl << message << endl << endl;
@@ -1703,7 +1688,7 @@ void Dataset::removeSequences(const vector<string>& namesToRemove,
 
             removeSequence(index, trashTags[i], true, true);
         }else{
-            string message = "[WARNING]: " + namesToRemove[i] + " is not in ";
+            string message = namesToRemove[i] + " is not in ";
             message += "your dataset, ignoring.";
             Rcpp::Rcout << endl << message << endl;
         }
@@ -1737,7 +1722,7 @@ void Dataset::setAbundance(const vector<string>& n, const vector<float>& abunds,
             }
 
         }else{
-            string message = "[WARNING]: " + n[i] + " is not in your dataset,";
+            string message = n[i] + " is not in your dataset,";
             message += " ignoring.";
             Rcpp::Rcout << endl << message << endl;
         }
@@ -1787,7 +1772,7 @@ void Dataset::setAbundances(const vector<string>& n,
             }
 
         }else{
-            string message = "[WARNING]: " + n[i] + " is not in your dataset,";
+            string message = n[i] + " is not in your dataset,";
             message += " ignoring.";
             Rcpp::Rcout << endl << message << endl;
         }
@@ -1859,7 +1844,7 @@ void Dataset::setSequences(const vector<string>& n, const vector<string>& s,
             }
 
         }else{
-            string message = "[WARNING]: " + n[i] + " is not in your dataset,";
+            string message = n[i] + " is not in your dataset,";
             message += " ignoring.";
             Rcpp::Rcout << endl << message << endl;
         }
@@ -1935,7 +1920,6 @@ void Dataset::sortDataset() {
     }
 
     // sort reports by sequence name column
-    metadata.sortAlpha();
     for (auto & report : reports) {
         report.second.sortAlpha();
     }

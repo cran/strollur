@@ -501,7 +501,7 @@ contigs_report the <em>sequence_name</em> column is called
 <span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">&quot;contigs_report&quot;</span>,</span>
 <span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>  <span class="at">table_names =</span> <span class="fu">list</span>(<span class="at">sequence_name =</span> <span class="st">&quot;Name&quot;</span>)</span>
 <span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>)</span>
-<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; Added a contigs_report.</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; Added a contigs_report report.</span></span>
 <span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>data</span>
 <span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns numseqs</span></span>
 <span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0    1.00</span></span>
@@ -522,8 +522,9 @@ contigs_report the <em>sequence_name</em> column is called
 <div id="adding-metadata" class="section level4">
 <h4>Adding Metadata</h4>
 <p>Now that we have added our custom contigs assembly report, let’s
-learn how to add metadata. We can add metadata to our data set by
-setting the type = “metadata”.</p>
+learn how to add reports not tied to sequence names. We can add metadata
+to our data set by setting the type = “report”, report_type =
+“metadata”.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_metadata.rds&quot;</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">str</span>(metadata)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [19 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
@@ -539,9 +540,10 @@ setting the type = “metadata”.</p>
 <span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="fu">add</span>(</span>
 <span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>  data,</span>
 <span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="at">table =</span> metadata,</span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;metadata&quot;</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>)</span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; Added metadata.</span></span></code></pre></div>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;report&quot;</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">&quot;metadata&quot;</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>)</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; Added a metadata report.</span></span></code></pre></div>
 </div>
 <div id="adding-resource-references" class="section level4">
 <h4>Adding Resource References</h4>
@@ -608,8 +610,7 @@ sample data using the assign function with the type =
 <span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
 <span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
 <span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 </div>
 <div id="assigning-bins" class="section level4">
 <h4>Assigning Bins</h4>
@@ -652,8 +653,7 @@ Taxonomic Unit</a> clusters and set the bin_type = “otu”.</p>
 <span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
 <span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 531 </span></span>
 <span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>You can see from the summary, we now have 531 otus in our
 dataset.</p>
 <p>Note, if you are importing data from packages that preprocess the

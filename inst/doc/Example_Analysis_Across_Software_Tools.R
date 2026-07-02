@@ -34,7 +34,7 @@ strollur_data <- read_mothur(
 )
 
 metadata <- readRDS(strollur_example("miseq_metadata.rds"))
-add(strollur_data, table = metadata, type = "metadata")
+add(strollur_data, table = metadata, type = "report", report_type = "metadata")
 
 ## ----eval = FALSE-------------------------------------------------------------
 # database_reference <- build_kmer_database(trainset9_pds)

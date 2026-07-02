@@ -380,9 +380,9 @@ take a close look at functions you will need to do so using the
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; Assigned 19 samples to treatments.</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin taxonomies.</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin representative sequences.</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; Added metadata.</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; Added a metadata report.</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; Added 2 resource references.</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; Added a contigs_report.</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; Added a contigs_report report.</span></span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>miseq</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; miseq_sop:</span></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
@@ -409,8 +409,7 @@ take a close look at functions you will need to do so using the
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 63 </span></span>
 <span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2425 </span></span>
 <span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <div id="setting-the-dataset-name" class="section level4">
 <h4>Setting the dataset name</h4>
 <p>To change the data set name you can use the
@@ -472,20 +471,19 @@ sample ‘F3D0’ for closer inspection.</p>
 <span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 63 </span></span>
 <span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2425 </span></span>
 <span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>f3d0_sequences <span class="ot">&lt;-</span> <span class="fu">xdev_get_by_sample</span>(</span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>  miseq,</span>
-<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>, <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>)</span>
-<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>)</span>
-<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>f3d0_sequences[[<span class="dv">1</span>]][<span class="dv">300</span><span class="sc">:</span><span class="dv">305</span>]</span>
-<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; [1] &quot;TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-T-TA-T-G-C-AA-G-T-C-A-G-A-A-G--TG-A-AA-GC-C-C-AA-AG--CT-C-AA-C-T-T-C-G-G-G-ACT-G-C-TTTT-GAAAC-TG-T-GTAAC-TAGA-GT-GC-AG-GA-G-G---GG-T-A-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCGGC-GGCGAAGGCG------GCTTA-CTG-G-AC-TG-T-A-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-AAACAGG&quot;</span></span>
-<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a><span class="co">#&gt; [2] &quot;NNNN&quot;                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
-<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a><span class="co">#&gt; [3] &quot;TAC--GG-AG-GGT--GCA-A-G-C-G-T-T--AA-T-CGG-AA--TT-A-C-T--GG-GC--GT-A-AA-GC-GC-AC-G-CA-GGC-G-G-T-TT-G-T-T-AA-G-T-C-A-G-A-T-G--TG-A-AA-TC-C-C-CG-GG--CT-C-AA-C-C-T-G-G-G-A-ACT-G-C-ATCT-GATAC-TG-G-CAAGC-TTGA-GT-CT-CG-TA-G-A---GG-G-G-GGTAGAATTCCAGGTGT-AGCGGT-GAAATGCGTAG-AG-A-TC-TG-GA-GG-AATACCGGT-GGCGAAGGCG------GCCCC-CTG-G-AC-GA-A-G-ACTGACG-CTCA-GGTG-CGAAA-GCG-TGGGG-AGC-AAACAGG&quot;</span></span>
-<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="co">#&gt; [4] &quot;NNNN&quot;                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
-<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="co">#&gt; [5] &quot;TAC--GT-AG-GGA--GCG-A-G-C-G-T-T--GT-C-CGG-AA--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GGC-G-G-G-AT-T-G-C-AA-G-T-T-G-G-A-T-G--TG-A-AA-AC-T-G-CG-GG--CT-C-AA-C-C-C-G-G-A-G-AGT-G-C-ATTC-AAAAC-TG-C-GATTC-TTGA-GT-GA-AG-TA-G-A---GG-C-A-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTG-CTG-G-GC-TT-T-T-ACTGACG-CTGA-GGCT-CGAAA-GTG-TGGGG-AGC-AAACAGG&quot;</span></span>
-<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a><span class="co">#&gt; [6] &quot;TAC--GT-AG-GGG--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-GT-C-G-C-AA-G-T-C-T-G-A-A-G--TG-A-AA-GC-C-C-GT-GG--CT-C-AA-C-C-G-C-G-G-A-ACC-G-C-TTTG-GAAAC-TG-C-GAGGC-TGGA-GT-GC-TG-GA-G-A---GG-T-A-AGCGGAATTCCTGGTGT-AGCGGT-GAAATGCGTAG-AT-A-TC-AG-GA-GG-AACACCGGT-GGCGAAGGCG------GCTTA-CTG-G-AC-AG-T-G-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-GAACAGG&quot;</span></span></code></pre></div>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>f3d0_sequences <span class="ot">&lt;-</span> <span class="fu">xdev_get_by_sample</span>(</span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>  miseq,</span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>, <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">&quot;F3D0&quot;</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>)</span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>f3d0_sequences[[<span class="dv">1</span>]][<span class="dv">300</span><span class="sc">:</span><span class="dv">305</span>]</span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt; [1] &quot;TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-T-TA-T-G-C-AA-G-T-C-A-G-A-A-G--TG-A-AA-GC-C-C-AA-AG--CT-C-AA-C-T-T-C-G-G-G-ACT-G-C-TTTT-GAAAC-TG-T-GTAAC-TAGA-GT-GC-AG-GA-G-G---GG-T-A-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCGGC-GGCGAAGGCG------GCTTA-CTG-G-AC-TG-T-A-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-AAACAGG&quot;</span></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; [2] &quot;NNNN&quot;                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a><span class="co">#&gt; [3] &quot;TAC--GG-AG-GGT--GCA-A-G-C-G-T-T--AA-T-CGG-AA--TT-A-C-T--GG-GC--GT-A-AA-GC-GC-AC-G-CA-GGC-G-G-T-TT-G-T-T-AA-G-T-C-A-G-A-T-G--TG-A-AA-TC-C-C-CG-GG--CT-C-AA-C-C-T-G-G-G-A-ACT-G-C-ATCT-GATAC-TG-G-CAAGC-TTGA-GT-CT-CG-TA-G-A---GG-G-G-GGTAGAATTCCAGGTGT-AGCGGT-GAAATGCGTAG-AG-A-TC-TG-GA-GG-AATACCGGT-GGCGAAGGCG------GCCCC-CTG-G-AC-GA-A-G-ACTGACG-CTCA-GGTG-CGAAA-GCG-TGGGG-AGC-AAACAGG&quot;</span></span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a><span class="co">#&gt; [4] &quot;NNNN&quot;                                                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="co">#&gt; [5] &quot;TAC--GT-AG-GGA--GCG-A-G-C-G-T-T--GT-C-CGG-AA--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GGC-G-G-G-AT-T-G-C-AA-G-T-T-G-G-A-T-G--TG-A-AA-AC-T-G-CG-GG--CT-C-AA-C-C-C-G-G-A-G-AGT-G-C-ATTC-AAAAC-TG-C-GATTC-TTGA-GT-GA-AG-TA-G-A---GG-C-A-AGCGGAATTCCTAGTGT-AGCGGT-GAAATGCGTAG-AT-A-TT-AG-GA-GG-AACACCAGT-GGCGAAGGCG------GCTTG-CTG-G-GC-TT-T-T-ACTGACG-CTGA-GGCT-CGAAA-GTG-TGGGG-AGC-AAACAGG&quot;</span></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="co">#&gt; [6] &quot;TAC--GT-AG-GGG--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-GT-C-G-C-AA-G-T-C-T-G-A-A-G--TG-A-AA-GC-C-C-GT-GG--CT-C-AA-C-C-G-C-G-G-A-ACC-G-C-TTTG-GAAAC-TG-C-GAGGC-TGGA-GT-GC-TG-GA-G-A---GG-T-A-AGCGGAATTCCTGGTGT-AGCGGT-GAAATGCGTAG-AT-A-TC-AG-GA-GG-AACACCGGT-GGCGAAGGCG------GCTTA-CTG-G-AC-AG-T-G-ACTGACG-TTGA-GGCT-CGAAA-GCG-TGGGG-AGC-GAACAGG&quot;</span></span></code></pre></div>
 </div>
 <div id="setting-sequence-abundances" class="section level4">
 <h4>Setting sequence abundances</h4>
@@ -560,43 +558,41 @@ inputs for <code>xdev_set_abundances()</code>.</p>
 <span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
 <span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
 <span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a>miseq</span>
-<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
-<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb5-66"><a href="#cb5-66" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2846.35</span></span>
-<span id="cb5-67"><a href="#cb5-67" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28463.50</span></span>
-<span id="cb5-68"><a href="#cb5-68" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56927.00</span></span>
-<span id="cb5-69"><a href="#cb5-69" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85390.50</span></span>
-<span id="cb5-70"><a href="#cb5-70" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111007.65</span></span>
-<span id="cb5-71"><a href="#cb5-71" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113854.00</span></span>
-<span id="cb5-72"><a href="#cb5-72" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56927.14</span></span>
-<span id="cb5-73"><a href="#cb5-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-74"><a href="#cb5-74" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb5-75"><a href="#cb5-75" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
-<span id="cb5-76"><a href="#cb5-76" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb5-77"><a href="#cb5-77" tabindex="-1"></a><span class="co">#&gt; 2       otu F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb5-78"><a href="#cb5-78" tabindex="-1"></a><span class="co">#&gt; 3       asv F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb5-79"><a href="#cb5-79" tabindex="-1"></a><span class="co">#&gt; 4 phylotype F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb5-80"><a href="#cb5-80" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-81"><a href="#cb5-81" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2324 </span></span>
-<span id="cb5-82"><a href="#cb5-82" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113854 </span></span>
-<span id="cb5-83"><a href="#cb5-83" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-84"><a href="#cb5-84" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb5-85"><a href="#cb5-85" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb5-86"><a href="#cb5-86" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 517 </span></span>
-<span id="cb5-87"><a href="#cb5-87" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 517 </span></span>
-<span id="cb5-88"><a href="#cb5-88" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2324 </span></span>
-<span id="cb5-89"><a href="#cb5-89" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2324 </span></span>
-<span id="cb5-90"><a href="#cb5-90" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 61 </span></span>
-<span id="cb5-91"><a href="#cb5-91" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
-<span id="cb5-92"><a href="#cb5-92" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
-<span id="cb5-93"><a href="#cb5-93" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb5-94"><a href="#cb5-94" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb5-95"><a href="#cb5-95" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a>miseq</span>
+<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2846.35</span></span>
+<span id="cb5-66"><a href="#cb5-66" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28463.50</span></span>
+<span id="cb5-67"><a href="#cb5-67" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56927.00</span></span>
+<span id="cb5-68"><a href="#cb5-68" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85390.50</span></span>
+<span id="cb5-69"><a href="#cb5-69" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111007.65</span></span>
+<span id="cb5-70"><a href="#cb5-70" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113854.00</span></span>
+<span id="cb5-71"><a href="#cb5-71" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56927.14</span></span>
+<span id="cb5-72"><a href="#cb5-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-73"><a href="#cb5-73" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb5-74"><a href="#cb5-74" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
+<span id="cb5-75"><a href="#cb5-75" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb5-76"><a href="#cb5-76" tabindex="-1"></a><span class="co">#&gt; 2       otu F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb5-77"><a href="#cb5-77" tabindex="-1"></a><span class="co">#&gt; 3       asv F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb5-78"><a href="#cb5-78" tabindex="-1"></a><span class="co">#&gt; 4 phylotype F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb5-79"><a href="#cb5-79" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-80"><a href="#cb5-80" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2324 </span></span>
+<span id="cb5-81"><a href="#cb5-81" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113854 </span></span>
+<span id="cb5-82"><a href="#cb5-82" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-83"><a href="#cb5-83" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb5-84"><a href="#cb5-84" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb5-85"><a href="#cb5-85" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 517 </span></span>
+<span id="cb5-86"><a href="#cb5-86" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 517 </span></span>
+<span id="cb5-87"><a href="#cb5-87" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2324 </span></span>
+<span id="cb5-88"><a href="#cb5-88" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2324 </span></span>
+<span id="cb5-89"><a href="#cb5-89" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 61 </span></span>
+<span id="cb5-90"><a href="#cb5-90" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
+<span id="cb5-91"><a href="#cb5-91" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
+<span id="cb5-92"><a href="#cb5-92" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb5-93"><a href="#cb5-93" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>You can see that not all of the sequences in ‘F3D0’ are removed. That
 is because the majority of sequences in the data set are present in
 multiple samples. mothur2 uses xdev_set_abundances when running the
@@ -676,44 +672,42 @@ this example we will randomly select 100 ‘otu’ bins to merge.</p>
 <span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
 <span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
 <span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a>miseq</span>
-<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
-<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2846.35</span></span>
-<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28463.50</span></span>
-<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56927.00</span></span>
-<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85390.50</span></span>
-<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111007.65</span></span>
-<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113854.00</span></span>
-<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56927.14</span></span>
-<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
-<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt; 2       otu F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; 3       otu       merge_bins_example     99  6674</span></span>
-<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt; 4       asv F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="co">#&gt; 5 phylotype F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2324 </span></span>
-<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113854 </span></span>
-<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 418 </span></span>
-<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 418 </span></span>
-<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2324 </span></span>
-<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2324 </span></span>
-<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 61 </span></span>
-<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
-<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
-<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a>miseq</span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2846.35</span></span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28463.50</span></span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56927.00</span></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85390.50</span></span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111007.65</span></span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113854.00</span></span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56927.14</span></span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt; 2       otu F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt; 3       otu       merge_bins_example     99  6674</span></span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; 4       asv F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt; 5 phylotype F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2324 </span></span>
+<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113854 </span></span>
+<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 418 </span></span>
+<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 418 </span></span>
+<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2324 </span></span>
+<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2324 </span></span>
+<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 61 </span></span>
+<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 61 </span></span>
+<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2324 </span></span>
+<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>You can see that the sample totals, total sequence and unique
 sequences remain the same but the number of otu bins is reduced by
 99.</p>
@@ -779,48 +773,46 @@ overlap, sequence length and ambiguous bases, so let’s randomly select
 <span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 60 </span></span>
 <span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2224 </span></span>
 <span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a>miseq</span>
-<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
-<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2528.60</span></span>
-<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  25286.00</span></span>
-<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  50572.00</span></span>
-<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  75858.00</span></span>
-<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0  98615.40</span></span>
-<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 101144.00</span></span>
-<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  50572.14</span></span>
-<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
-<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt; 2  sequence remove_sequences_example    100 12710</span></span>
-<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; 3       otu F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; 4       otu       merge_bins_example     99  6674</span></span>
-<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a><span class="co">#&gt; 5       otu remove_sequences_example      9   157</span></span>
-<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a><span class="co">#&gt; 6       asv F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a><span class="co">#&gt; 7       asv remove_sequences_example    100 12710</span></span>
-<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a><span class="co">#&gt; 8 phylotype F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a><span class="co">#&gt; 9 phylotype remove_sequences_example      1     1</span></span>
-<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2224 </span></span>
-<span id="cb8-74"><a href="#cb8-74" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 101144 </span></span>
-<span id="cb8-75"><a href="#cb8-75" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-76"><a href="#cb8-76" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb8-77"><a href="#cb8-77" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb8-78"><a href="#cb8-78" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 409 </span></span>
-<span id="cb8-79"><a href="#cb8-79" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 409 </span></span>
-<span id="cb8-80"><a href="#cb8-80" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2224 </span></span>
-<span id="cb8-81"><a href="#cb8-81" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2224 </span></span>
-<span id="cb8-82"><a href="#cb8-82" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 60 </span></span>
-<span id="cb8-83"><a href="#cb8-83" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 60 </span></span>
-<span id="cb8-84"><a href="#cb8-84" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2224 </span></span>
-<span id="cb8-85"><a href="#cb8-85" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb8-86"><a href="#cb8-86" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb8-87"><a href="#cb8-87" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a>miseq</span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2528.60</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  25286.00</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  50572.00</span></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  75858.00</span></span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0  98615.40</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 101144.00</span></span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  50572.14</span></span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt;        type               trash_code unique total</span></span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt; 1  sequence F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; 2  sequence remove_sequences_example    100 12710</span></span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt; 3       otu F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; 4       otu       merge_bins_example     99  6674</span></span>
+<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; 5       otu remove_sequences_example      9   157</span></span>
+<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a><span class="co">#&gt; 6       asv F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a><span class="co">#&gt; 7       asv remove_sequences_example    100 12710</span></span>
+<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a><span class="co">#&gt; 8 phylotype F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a><span class="co">#&gt; 9 phylotype remove_sequences_example      1     1</span></span>
+<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2224 </span></span>
+<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 101144 </span></span>
+<span id="cb8-74"><a href="#cb8-74" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-75"><a href="#cb8-75" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb8-76"><a href="#cb8-76" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb8-77"><a href="#cb8-77" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 409 </span></span>
+<span id="cb8-78"><a href="#cb8-78" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 409 </span></span>
+<span id="cb8-79"><a href="#cb8-79" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 2224 </span></span>
+<span id="cb8-80"><a href="#cb8-80" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 2224 </span></span>
+<span id="cb8-81"><a href="#cb8-81" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 60 </span></span>
+<span id="cb8-82"><a href="#cb8-82" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 60 </span></span>
+<span id="cb8-83"><a href="#cb8-83" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 2224 </span></span>
+<span id="cb8-84"><a href="#cb8-84" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb8-85"><a href="#cb8-85" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>Note, sequences can also be removed by setting their abundance to
 0.</p>
 </div>
@@ -884,52 +876,50 @@ effects the bins in the ‘otu’ and ‘asv’ clusters.</p>
 <span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 50 </span></span>
 <span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1373 </span></span>
 <span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a>miseq</span>
-<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
-<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
-<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1979.90</span></span>
-<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 19799.00</span></span>
-<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 39598.00</span></span>
-<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 59397.00</span></span>
-<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 77216.10</span></span>
-<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 79196.00</span></span>
-<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 39598.14</span></span>
-<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a><span class="co">#&gt;         type               trash_code unique total</span></span>
-<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a><span class="co">#&gt; 1   sequence F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a><span class="co">#&gt; 2   sequence      remove_bins_example    851 21948</span></span>
-<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a><span class="co">#&gt; 3   sequence remove_sequences_example    100 12710</span></span>
-<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a><span class="co">#&gt; 4        otu F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a><span class="co">#&gt; 5        otu       merge_bins_example     99  6674</span></span>
-<span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a><span class="co">#&gt; 6        otu      remove_bins_example    134 15766</span></span>
-<span id="cb9-78"><a href="#cb9-78" tabindex="-1"></a><span class="co">#&gt; 7        otu remove_sequences_example      9   157</span></span>
-<span id="cb9-79"><a href="#cb9-79" tabindex="-1"></a><span class="co">#&gt; 8        asv F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb9-80"><a href="#cb9-80" tabindex="-1"></a><span class="co">#&gt; 9        asv      remove_bins_example    851 21948</span></span>
-<span id="cb9-81"><a href="#cb9-81" tabindex="-1"></a><span class="co">#&gt; 10       asv remove_sequences_example    100 12710</span></span>
-<span id="cb9-82"><a href="#cb9-82" tabindex="-1"></a><span class="co">#&gt; 11 phylotype F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb9-83"><a href="#cb9-83" tabindex="-1"></a><span class="co">#&gt; 12 phylotype      remove_bins_example     10 23530</span></span>
-<span id="cb9-84"><a href="#cb9-84" tabindex="-1"></a><span class="co">#&gt; 13 phylotype remove_sequences_example      1     1</span></span>
-<span id="cb9-85"><a href="#cb9-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-86"><a href="#cb9-86" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1373 </span></span>
-<span id="cb9-87"><a href="#cb9-87" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 79196 </span></span>
-<span id="cb9-88"><a href="#cb9-88" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-89"><a href="#cb9-89" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb9-90"><a href="#cb9-90" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb9-91"><a href="#cb9-91" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 275 </span></span>
-<span id="cb9-92"><a href="#cb9-92" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 275 </span></span>
-<span id="cb9-93"><a href="#cb9-93" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1373 </span></span>
-<span id="cb9-94"><a href="#cb9-94" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1373 </span></span>
-<span id="cb9-95"><a href="#cb9-95" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 50 </span></span>
-<span id="cb9-96"><a href="#cb9-96" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 50 </span></span>
-<span id="cb9-97"><a href="#cb9-97" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1373 </span></span>
-<span id="cb9-98"><a href="#cb9-98" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb9-99"><a href="#cb9-99" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb9-100"><a href="#cb9-100" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a>miseq</span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1979.90</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 19799.00</span></span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 39598.00</span></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 59397.00</span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 77216.10</span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 79196.00</span></span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 39598.14</span></span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a><span class="co">#&gt;         type               trash_code unique total</span></span>
+<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a><span class="co">#&gt; 1   sequence F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a><span class="co">#&gt; 2   sequence      remove_bins_example    851 21948</span></span>
+<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a><span class="co">#&gt; 3   sequence remove_sequences_example    100 12710</span></span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a><span class="co">#&gt; 4        otu F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a><span class="co">#&gt; 5        otu       merge_bins_example     99  6674</span></span>
+<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a><span class="co">#&gt; 6        otu      remove_bins_example    134 15766</span></span>
+<span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a><span class="co">#&gt; 7        otu remove_sequences_example      9   157</span></span>
+<span id="cb9-78"><a href="#cb9-78" tabindex="-1"></a><span class="co">#&gt; 8        asv F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb9-79"><a href="#cb9-79" tabindex="-1"></a><span class="co">#&gt; 9        asv      remove_bins_example    851 21948</span></span>
+<span id="cb9-80"><a href="#cb9-80" tabindex="-1"></a><span class="co">#&gt; 10       asv remove_sequences_example    100 12710</span></span>
+<span id="cb9-81"><a href="#cb9-81" tabindex="-1"></a><span class="co">#&gt; 11 phylotype F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb9-82"><a href="#cb9-82" tabindex="-1"></a><span class="co">#&gt; 12 phylotype      remove_bins_example     10 23530</span></span>
+<span id="cb9-83"><a href="#cb9-83" tabindex="-1"></a><span class="co">#&gt; 13 phylotype remove_sequences_example      1     1</span></span>
+<span id="cb9-84"><a href="#cb9-84" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-85"><a href="#cb9-85" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1373 </span></span>
+<span id="cb9-86"><a href="#cb9-86" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 79196 </span></span>
+<span id="cb9-87"><a href="#cb9-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-88"><a href="#cb9-88" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb9-89"><a href="#cb9-89" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb9-90"><a href="#cb9-90" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 275 </span></span>
+<span id="cb9-91"><a href="#cb9-91" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 275 </span></span>
+<span id="cb9-92"><a href="#cb9-92" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1373 </span></span>
+<span id="cb9-93"><a href="#cb9-93" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1373 </span></span>
+<span id="cb9-94"><a href="#cb9-94" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 50 </span></span>
+<span id="cb9-95"><a href="#cb9-95" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 50 </span></span>
+<span id="cb9-96"><a href="#cb9-96" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1373 </span></span>
+<span id="cb9-97"><a href="#cb9-97" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb9-98"><a href="#cb9-98" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>Looking closer at the scrap summary we can see that removing 10
 phylotype bins, removed 851 unique sequences that represented 21948
 reads. After the removal of the 851 unique sequences the ‘otu’ cluster
@@ -991,56 +981,54 @@ mock community removed so for the sake of example we will remove sample
 <span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 49 </span></span>
 <span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1335 </span></span>
 <span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a>miseq</span>
-<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
-<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
-<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1935.30</span></span>
-<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 19353.00</span></span>
-<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 38706.00</span></span>
-<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 58059.00</span></span>
-<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 75476.70</span></span>
-<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 77412.00</span></span>
-<span id="cb10-63"><a href="#cb10-63" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 38706.14</span></span>
-<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb10-66"><a href="#cb10-66" tabindex="-1"></a><span class="co">#&gt;         type               trash_code unique total</span></span>
-<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a><span class="co">#&gt; 1   sequence F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a><span class="co">#&gt; 2   sequence      remove_bins_example    851 21948</span></span>
-<span id="cb10-69"><a href="#cb10-69" tabindex="-1"></a><span class="co">#&gt; 3   sequence   remove_samples_example     38    42</span></span>
-<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a><span class="co">#&gt; 4   sequence remove_sequences_example    100 12710</span></span>
-<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a><span class="co">#&gt; 5        otu F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a><span class="co">#&gt; 6        otu       merge_bins_example     99  6674</span></span>
-<span id="cb10-73"><a href="#cb10-73" tabindex="-1"></a><span class="co">#&gt; 7        otu      remove_bins_example    134 15766</span></span>
-<span id="cb10-74"><a href="#cb10-74" tabindex="-1"></a><span class="co">#&gt; 8        otu   remove_samples_example      9    15</span></span>
-<span id="cb10-75"><a href="#cb10-75" tabindex="-1"></a><span class="co">#&gt; 9        otu remove_sequences_example      9   157</span></span>
-<span id="cb10-76"><a href="#cb10-76" tabindex="-1"></a><span class="co">#&gt; 10       asv F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb10-77"><a href="#cb10-77" tabindex="-1"></a><span class="co">#&gt; 11       asv      remove_bins_example    851 21948</span></span>
-<span id="cb10-78"><a href="#cb10-78" tabindex="-1"></a><span class="co">#&gt; 12       asv   remove_samples_example     38    42</span></span>
-<span id="cb10-79"><a href="#cb10-79" tabindex="-1"></a><span class="co">#&gt; 13       asv remove_sequences_example    100 12710</span></span>
-<span id="cb10-80"><a href="#cb10-80" tabindex="-1"></a><span class="co">#&gt; 14 phylotype F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb10-81"><a href="#cb10-81" tabindex="-1"></a><span class="co">#&gt; 15 phylotype      remove_bins_example     10 23530</span></span>
-<span id="cb10-82"><a href="#cb10-82" tabindex="-1"></a><span class="co">#&gt; 16 phylotype   remove_samples_example      1     1</span></span>
-<span id="cb10-83"><a href="#cb10-83" tabindex="-1"></a><span class="co">#&gt; 17 phylotype remove_sequences_example      1     1</span></span>
-<span id="cb10-84"><a href="#cb10-84" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-85"><a href="#cb10-85" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1335 </span></span>
-<span id="cb10-86"><a href="#cb10-86" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 77412 </span></span>
-<span id="cb10-87"><a href="#cb10-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-88"><a href="#cb10-88" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 18 </span></span>
-<span id="cb10-89"><a href="#cb10-89" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb10-90"><a href="#cb10-90" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 266 </span></span>
-<span id="cb10-91"><a href="#cb10-91" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 266 </span></span>
-<span id="cb10-92"><a href="#cb10-92" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1335 </span></span>
-<span id="cb10-93"><a href="#cb10-93" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1335 </span></span>
-<span id="cb10-94"><a href="#cb10-94" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 49 </span></span>
-<span id="cb10-95"><a href="#cb10-95" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 49 </span></span>
-<span id="cb10-96"><a href="#cb10-96" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1335 </span></span>
-<span id="cb10-97"><a href="#cb10-97" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb10-98"><a href="#cb10-98" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb10-99"><a href="#cb10-99" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a>miseq</span>
+<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
+<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
+<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1935.30</span></span>
+<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 19353.00</span></span>
+<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 38706.00</span></span>
+<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 58059.00</span></span>
+<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 75476.70</span></span>
+<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 77412.00</span></span>
+<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 38706.14</span></span>
+<span id="cb10-63"><a href="#cb10-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a><span class="co">#&gt;         type               trash_code unique total</span></span>
+<span id="cb10-66"><a href="#cb10-66" tabindex="-1"></a><span class="co">#&gt; 1   sequence F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a><span class="co">#&gt; 2   sequence      remove_bins_example    851 21948</span></span>
+<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a><span class="co">#&gt; 3   sequence   remove_samples_example     38    42</span></span>
+<span id="cb10-69"><a href="#cb10-69" tabindex="-1"></a><span class="co">#&gt; 4   sequence remove_sequences_example    100 12710</span></span>
+<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a><span class="co">#&gt; 5        otu F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a><span class="co">#&gt; 6        otu       merge_bins_example     99  6674</span></span>
+<span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a><span class="co">#&gt; 7        otu      remove_bins_example    134 15766</span></span>
+<span id="cb10-73"><a href="#cb10-73" tabindex="-1"></a><span class="co">#&gt; 8        otu   remove_samples_example      9    15</span></span>
+<span id="cb10-74"><a href="#cb10-74" tabindex="-1"></a><span class="co">#&gt; 9        otu remove_sequences_example      9   157</span></span>
+<span id="cb10-75"><a href="#cb10-75" tabindex="-1"></a><span class="co">#&gt; 10       asv F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb10-76"><a href="#cb10-76" tabindex="-1"></a><span class="co">#&gt; 11       asv      remove_bins_example    851 21948</span></span>
+<span id="cb10-77"><a href="#cb10-77" tabindex="-1"></a><span class="co">#&gt; 12       asv   remove_samples_example     38    42</span></span>
+<span id="cb10-78"><a href="#cb10-78" tabindex="-1"></a><span class="co">#&gt; 13       asv remove_sequences_example    100 12710</span></span>
+<span id="cb10-79"><a href="#cb10-79" tabindex="-1"></a><span class="co">#&gt; 14 phylotype F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb10-80"><a href="#cb10-80" tabindex="-1"></a><span class="co">#&gt; 15 phylotype      remove_bins_example     10 23530</span></span>
+<span id="cb10-81"><a href="#cb10-81" tabindex="-1"></a><span class="co">#&gt; 16 phylotype   remove_samples_example      1     1</span></span>
+<span id="cb10-82"><a href="#cb10-82" tabindex="-1"></a><span class="co">#&gt; 17 phylotype remove_sequences_example      1     1</span></span>
+<span id="cb10-83"><a href="#cb10-83" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-84"><a href="#cb10-84" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1335 </span></span>
+<span id="cb10-85"><a href="#cb10-85" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 77412 </span></span>
+<span id="cb10-86"><a href="#cb10-86" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-87"><a href="#cb10-87" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 18 </span></span>
+<span id="cb10-88"><a href="#cb10-88" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb10-89"><a href="#cb10-89" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 266 </span></span>
+<span id="cb10-90"><a href="#cb10-90" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 266 </span></span>
+<span id="cb10-91"><a href="#cb10-91" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1335 </span></span>
+<span id="cb10-92"><a href="#cb10-92" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1335 </span></span>
+<span id="cb10-93"><a href="#cb10-93" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 49 </span></span>
+<span id="cb10-94"><a href="#cb10-94" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 49 </span></span>
+<span id="cb10-95"><a href="#cb10-95" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1335 </span></span>
+<span id="cb10-96"><a href="#cb10-96" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb10-97"><a href="#cb10-97" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>Lastly, we can remove contaminants from the data set using the
 <code>xdev_remove_lineages()</code> function. The miseq example has
 already had the contaminants removed after classification and before bin
@@ -1106,60 +1094,58 @@ assigned to
 <span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 48 </span></span>
 <span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1221 </span></span>
 <span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span>
-<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a>miseq</span>
-<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
-<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
-<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
-<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1892.25</span></span>
-<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 18922.50</span></span>
-<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    252      0        4     0 37845.00</span></span>
-<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 56767.50</span></span>
-<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 73797.75</span></span>
-<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 75690.00</span></span>
-<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 37845.14</span></span>
-<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
-<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co">#&gt;         type                  trash_code unique total</span></span>
-<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co">#&gt; 1   sequence    F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="co">#&gt; 2   sequence         remove_bins_example    851 21948</span></span>
-<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="co">#&gt; 3   sequence remove_contaminants_example    114  1722</span></span>
-<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co">#&gt; 4   sequence      remove_samples_example     38    42</span></span>
-<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co">#&gt; 5   sequence    remove_sequences_example    100 12710</span></span>
-<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co">#&gt; 6        otu    F3D0_exclusive_sequences     14    14</span></span>
-<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co">#&gt; 7        otu          merge_bins_example     99  6674</span></span>
-<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="co">#&gt; 8        otu         remove_bins_example    134 15766</span></span>
-<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co">#&gt; 9        otu remove_contaminants_example     37  4428</span></span>
-<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co">#&gt; 10       otu      remove_samples_example      9    15</span></span>
-<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co">#&gt; 11       otu    remove_sequences_example      9   157</span></span>
-<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co">#&gt; 12       asv    F3D0_exclusive_sequences    101   109</span></span>
-<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co">#&gt; 13       asv         remove_bins_example    851 21948</span></span>
-<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="co">#&gt; 14       asv remove_contaminants_example    114  1752</span></span>
-<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="co">#&gt; 15       asv      remove_samples_example     38    42</span></span>
-<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co">#&gt; 16       asv    remove_sequences_example    100 12710</span></span>
-<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co">#&gt; 17 phylotype    F3D0_exclusive_sequences      2     2</span></span>
-<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co">#&gt; 18 phylotype         remove_bins_example     10 23530</span></span>
-<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co">#&gt; 19 phylotype remove_contaminants_example      1  1773</span></span>
-<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co">#&gt; 20 phylotype      remove_samples_example      1     1</span></span>
-<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a><span class="co">#&gt; 21 phylotype    remove_sequences_example      1     1</span></span>
-<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1221 </span></span>
-<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 75690 </span></span>
-<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 18 </span></span>
-<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 229 </span></span>
-<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 229 </span></span>
-<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1221 </span></span>
-<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1221 </span></span>
-<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 48 </span></span>
-<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 48 </span></span>
-<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1221 </span></span>
-<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1 </span></span>
-<span id="cb11-113"><a href="#cb11-113" tabindex="-1"></a><span class="co">#&gt; Your dataset includes metadata</span></span></code></pre></div>
+<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span>
+<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a>miseq</span>
+<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="co">#&gt; modified_miseq:</span></span>
+<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns  numseqs</span></span>
+<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0     1.00</span></span>
+<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    251      0        4     0  1892.25</span></span>
+<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0 18922.50</span></span>
+<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    252      0        4     0 37845.00</span></span>
+<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 56767.50</span></span>
+<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 73797.75</span></span>
+<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 75690.00</span></span>
+<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 37845.14</span></span>
+<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="co">#&gt; scrap_summary:</span></span>
+<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co">#&gt;         type                  trash_code unique total</span></span>
+<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co">#&gt; 1   sequence    F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co">#&gt; 2   sequence         remove_bins_example    851 21948</span></span>
+<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="co">#&gt; 3   sequence remove_contaminants_example    114  1722</span></span>
+<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="co">#&gt; 4   sequence      remove_samples_example     38    42</span></span>
+<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co">#&gt; 5   sequence    remove_sequences_example    100 12710</span></span>
+<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co">#&gt; 6        otu    F3D0_exclusive_sequences     14    14</span></span>
+<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co">#&gt; 7        otu          merge_bins_example     99  6674</span></span>
+<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co">#&gt; 8        otu         remove_bins_example    134 15766</span></span>
+<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="co">#&gt; 9        otu remove_contaminants_example     37  4428</span></span>
+<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co">#&gt; 10       otu      remove_samples_example      9    15</span></span>
+<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co">#&gt; 11       otu    remove_sequences_example      9   157</span></span>
+<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co">#&gt; 12       asv    F3D0_exclusive_sequences    101   109</span></span>
+<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co">#&gt; 13       asv         remove_bins_example    851 21948</span></span>
+<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co">#&gt; 14       asv remove_contaminants_example    114  1752</span></span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="co">#&gt; 15       asv      remove_samples_example     38    42</span></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="co">#&gt; 16       asv    remove_sequences_example    100 12710</span></span>
+<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co">#&gt; 17 phylotype    F3D0_exclusive_sequences      2     2</span></span>
+<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co">#&gt; 18 phylotype         remove_bins_example     10 23530</span></span>
+<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co">#&gt; 19 phylotype remove_contaminants_example      1  1773</span></span>
+<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co">#&gt; 20 phylotype      remove_samples_example      1     1</span></span>
+<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co">#&gt; 21 phylotype    remove_sequences_example      1     1</span></span>
+<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 1221 </span></span>
+<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 75690 </span></span>
+<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 18 </span></span>
+<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 229 </span></span>
+<span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a><span class="co">#&gt; Total number of otu bin classifications: 229 </span></span>
+<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a><span class="co">#&gt; Total number of asvs: 1221 </span></span>
+<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a><span class="co">#&gt; Total number of asv bin classifications: 1221 </span></span>
+<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">#&gt; Total number of phylotypes: 48 </span></span>
+<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">#&gt; Total number of phylotype bin classifications: 48 </span></span>
+<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">#&gt; Total number of sequence classifications: 1221 </span></span>
+<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>Thanks for following along. To explore more <em>xdev_</em> functions
 you can look at the rcpp_xint_xdev_functions.h and
 rcpp_xint_xdev_functions.cpp files located in the src folder of the
