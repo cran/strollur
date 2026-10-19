@@ -341,13 +341,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<p><em>strollur</em> includes the function <code>read_mothur()</code> as
-well as several functions to read <a href="https://mothur.org">mothur</a> output files individually. To
-create a data set from the outputs of the <a href="https://mothur.org/wiki/miseq_sop/">Miseq SOP Example</a>, run the
+<p><em>strollur</em> includes the function
+<code>strollur::read_mothur()</code> as well as several functions to
+read <a href="https://mothur.org">mothur</a> output files individually.
+To create a data set from the outputs of the <a href="https://mothur.org/wiki/miseq_sop/">Miseq SOP Example</a>, run the
 following:</p>
-<div id="using-read_mothur" class="section level2">
-<h2>Using <code>read_mothur()</code></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_mothur</span>(</span>
+<div id="using-strollurread_mothur" class="section level2">
+<h2>Using <code>strollur::read_mothur()</code></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">fasta =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.fasta.gz&quot;</span>),</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.count_table.gz&quot;</span>),</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="at">taxonomy =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.taxonomy.gz&quot;</span>),</span>
@@ -371,13 +372,13 @@ following:</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2850.05</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28491.50</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56982.00</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.50</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.95</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56982.00</span></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
@@ -395,92 +396,108 @@ following:</p>
 <div id="importing-individual-files" class="section level2">
 <h2>Importing Individual Files</h2>
 <ul>
-<li><code>read_fasta()</code> read a <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a>
+<li><code>strollur::read_fasta()</code> read a <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a>
 formatted sequence file</li>
-<li><code>read_mothur_count()</code> read a mothur formatted <a href="https://mothur.org/wiki/count_file/">count file</a></li>
-<li><code>read_mothur_taxonomy()</code> read a mothur formatted <a href="https://mothur.org/wiki/taxonomy_file/">taxonomy file</a></li>
-<li><code>read_mothur_cons_taxonomy()</code> read a mothur formatted <a href="https://mothur.org/wiki/constaxonomy_file/">cons_taxonomy
+<li><code>strollur::read_mothur_count()</code> read a mothur formatted
+<a href="https://mothur.org/wiki/count_file/">count file</a></li>
+<li><code>strollur::read_mothur_taxonomy()</code> read a mothur
+formatted <a href="https://mothur.org/wiki/taxonomy_file/">taxonomy
 file</a></li>
-<li><code>read_mothur_list()</code> read a mothur formatted <a href="https://mothur.org/wiki/list_file/">list file</a></li>
-<li><code>read_mothur_shared()</code> read a mothur formatted <a href="https://mothur.org/wiki/shared_file/">shared file</a></li>
-<li><code>read_mothur_rabund()</code> read a mothur formatted <a href="https://mothur.org/wiki/rabund_file/">rabund file</a></li>
+<li><code>strollur::read_mothur_cons_taxonomy()</code> read a mothur
+formatted <a href="https://mothur.org/wiki/constaxonomy_file/">cons_taxonomy
+file</a></li>
+<li><code>strollur::read_mothur_list()</code> read a mothur formatted <a href="https://mothur.org/wiki/list_file/">list file</a></li>
+<li><code>strollur::read_mothur_shared()</code> read a mothur formatted
+<a href="https://mothur.org/wiki/shared_file/">shared file</a></li>
+<li><code>strollur::read_mothur_rabund()</code> read a mothur formatted
+<a href="https://mothur.org/wiki/rabund_file/">rabund file</a></li>
 </ul>
 <p>To create a data set and read the individual file types, you can use
 the functions below. First let’s create a data set named my_data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">new_dataset</span>(<span class="at">dataset_name =</span> <span class="st">&quot;my_data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">new_dataset</span>(<span class="at">dataset_name =</span> <span class="st">&quot;my_data&quot;</span>)</span></code></pre></div>
 <p>To add <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a> data
-to your data set you can use the <code>read_fasta()</code> function:</p>
+to your data set you can use the <code>strollur::read_fasta()</code>
+function:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>fasta_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_fasta</span>(<span class="at">fasta =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.fasta.gz&quot;</span>))</span></code></pre></div>
 <p>fasta_data is a data.frame containing sequence names, sequence
 nucleotide strings, and comments if provided. You can add the FASTA
-sequences to your data set using the <code>add()</code> function:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">add</span>(my_data, <span class="at">table =</span> fasta_data, <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>)</span>
+sequences to your data set using the <code>strollur::add()</code>
+function:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(my_data, <span class="at">table =</span> fasta_data, <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; Added 2425 sequences.</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>my_data</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; my_data:</span></span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns numseqs</span></span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0    1.00</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   60.62</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  606.25</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1212.50</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1818.75</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.38</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   61.60</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  607.00</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1213.00</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1819.00</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.40</span></span>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 2425.00</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1212.64</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1213.00</span></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 2425</span></span></code></pre></div>
 <p>To add your sequence abundance data, you can read a <a href="https://mothur.org/wiki/count_file/">mothur count file</a> file
-using the <code>read_mothur_count()</code> function:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>sample_table <span class="ot">&lt;-</span> <span class="fu">read_mothur_count</span>(</span>
+using the <code>strollur::read_mothur_count()</code> function:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>sample_table <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur_count</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.count_table.gz&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>)</span></code></pre></div>
 <p>sample_table is a data.frame containing sequence_names, samples, and
 abundances. You can add the sequence abundance data to your data set
-using the <code>assign()</code> function:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">assign</span>(my_data, <span class="at">table =</span> sample_table, <span class="at">type =</span> <span class="st">&quot;sequence_abundance&quot;</span>)</span>
+using the <code>strollur::assign()</code> function:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(my_data, <span class="at">table =</span> sample_table, <span class="at">type =</span> <span class="st">&quot;sequence_abundance&quot;</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence abundances.</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>my_data</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; my_data:</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2850.05</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28491.50</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56982.00</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.50</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.95</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56982.00</span></span>
 <span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19</span></span></code></pre></div>
 <p>To add sequence taxonomy assignments, you can read a <a href="https://mothur.org/wiki/taxonomy_file/">taxonomy file</a> file
-using the <code>read_mothur_taxonomy()</code> function:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>classification_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_taxonomy</span>(</span>
+using the <code>strollur::read_mothur_taxonomy()</code> function:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>classification_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur_taxonomy</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">taxonomy =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.taxonomy.gz&quot;</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>)</span></code></pre></div>
 <p>classification_data is a data.frame containing sequence names and
 taxonomies. You can add the sequence classification data to your data
 set as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">assign</span>(my_data, <span class="at">table =</span> classification_data, <span class="at">type =</span> <span class="st">&quot;sequence_taxonomy&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence taxonomies.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(my_data,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">table =</span> classification_data,</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_taxonomy&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence taxonomies.</span></span></code></pre></div>
 <p>To assign sequences to bins, you can read a <a href="https://mothur.org/wiki/list_file/">mothur list file</a> file
-using the <code>read_mothur_list()</code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>otu_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_list</span>(<span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.opti_mcc.list.gz&quot;</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>asv_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_list</span>(<span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.asv.list.gz&quot;</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>phylotype_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_list</span>(<span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.tx.list.gz&quot;</span>))</span></code></pre></div>
+using the <code>strollur::read_mothur_list()</code> function:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>otu_data <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  strollur<span class="sc">::</span><span class="fu">read_mothur_list</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.opti_mcc.list.gz&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  )</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>asv_data <span class="ot">&lt;-</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  strollur<span class="sc">::</span><span class="fu">read_mothur_list</span>(<span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.asv.list.gz&quot;</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>phylotype_data <span class="ot">&lt;-</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  strollur<span class="sc">::</span><span class="fu">read_mothur_list</span>(<span class="at">list =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.tx.list.gz&quot;</span>))</span></code></pre></div>
 <p>otu_data, asv_data and phylotype_data are data.frames containing bin
 names and sequence names. You can add the bin data to your data set as
 follows:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">assign</span>(my_data, <span class="at">table =</span> otu_data, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>)</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(my_data, <span class="at">table =</span> otu_data, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bins.</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">assign</span>(my_data, <span class="at">table =</span> asv_data, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;asv&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(my_data, <span class="at">table =</span> asv_data, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;asv&quot;</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 asv bins.</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">assign</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(</span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  my_data,</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="at">table =</span> phylotype_data,</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;phylotype&quot;</span></span>
@@ -491,13 +508,13 @@ follows:</p>
 <span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
 <span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2850.05</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28491.50</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56982.00</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.50</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.95</span></span>
 <span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56982.00</span></span>
 <span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
@@ -513,34 +530,42 @@ follows:</p>
 <p>When you assign bins to sequences with taxonomic assignments the data
 set object will find the consensus taxonomy of the bins automatically.
 If you wish to assign the bin taxonomy separately, you can read a <a href="https://mothur.org/wiki/constaxonomy_file/">mothur cons_taxonomy
-file</a> file using the <code>read_mothur_cons_taxonomy()</code>
-function:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>otu_taxonomy_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_cons_taxonomy</span>(</span>
+file</a> file using the
+<code>strollur::read_mothur_cons_taxonomy()</code> function:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>otu_taxonomy_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur_cons_taxonomy</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="at">taxonomy =</span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="fu">strollur_example</span>(<span class="st">&quot;final.cons.taxonomy&quot;</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>)</span></code></pre></div>
 <p>otu_taxonomy_data is a data.frame containing bin names, abundances
 and taxonomies. You can add the bin taxonomic data to your data set as
 follows:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">assign</span>(my_data, <span class="at">table =</span> otu_taxonomy_data, <span class="at">type =</span> <span class="st">&quot;bin_taxonomy&quot;</span>)</span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(my_data, <span class="at">table =</span> otu_taxonomy_data, <span class="at">type =</span> <span class="st">&quot;bin_taxonomy&quot;</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin taxonomies.</span></span></code></pre></div>
 </div>
 <div id="writing-mothur-formatted-file-types" class="section level2">
 <h2>Writing mothur formatted file types</h2>
 <ul>
-<li><code>write_mothur()</code> write mothur formatted files for all
-data</li>
-<li><code>write_fasta()</code> read a <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a>
+<li><code>strollur::write_mothur()</code> write mothur formatted files
+for all data</li>
+<li><code>strollur::write_fasta()</code> read a <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a>
 formatted sequence file</li>
-<li><code>write_mothur_count()</code> write a mothur formatted <a href="https://mothur.org/wiki/count_file/">count file</a></li>
-<li><code>write_mothur_design()</code> write a mothur formatted <a href="https://mothur.org/wiki/design_file/">design file</a></li>
-<li><code>write_taxonomy()</code> write a mothur formatted <a href="https://mothur.org/wiki/taxonomy_file/">taxonomy file</a></li>
-<li><code>write_mothur_cons_taxonomy()</code> write a mothur formatted
-<a href="https://mothur.org/wiki/constaxonomy_file/">cons_taxonomy
+<li><code>strollur::write_mothur_count()</code> write a mothur formatted
+<a href="https://mothur.org/wiki/count_file/">count file</a></li>
+<li><code>strollur::write_mothur_design()</code> write a mothur
+formatted <a href="https://mothur.org/wiki/design_file/">design
 file</a></li>
-<li><code>write_mothur_list()</code> write a mothur formatted <a href="https://mothur.org/wiki/list_file/">list file</a></li>
-<li><code>write_mothur_shared()</code> write a mothur formatted <a href="https://mothur.org/wiki/shared_file/">shared file</a></li>
-<li><code>write_mothur_rabund()</code> write a mothur formatted <a href="https://mothur.org/wiki/rabund_file/">rabund file</a></li>
+<li><code>strollur::write_taxonomy()</code> write a mothur formatted <a href="https://mothur.org/wiki/taxonomy_file/">taxonomy file</a></li>
+<li><code>strollur::write_mothur_cons_taxonomy()</code> write a mothur
+formatted <a href="https://mothur.org/wiki/constaxonomy_file/">cons_taxonomy
+file</a></li>
+<li><code>strollur::write_mothur_list()</code> write a mothur formatted
+<a href="https://mothur.org/wiki/list_file/">list file</a></li>
+<li><code>strollur::write_mothur_shared()</code> write a mothur
+formatted <a href="https://mothur.org/wiki/shared_file/">shared
+file</a></li>
+<li><code>strollur::write_mothur_rabund()</code> write a mothur
+formatted <a href="https://mothur.org/wiki/rabund_file/">rabund
+file</a></li>
 </ul>
 </div>
 

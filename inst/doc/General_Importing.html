@@ -341,42 +341,45 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<p>The strollur package stores data associated with your Amplicon
-Sequence analysis. This tutorial will familiarize you some of with the
-functions available in the strollur package. If you haven’t reviewed the
-“Getting Started” tutorial, we recommend you start there.</p>
+<p>The <code>strollur</code> package stores data associated with your
+Amplicon Sequence analysis. This tutorial will familiarize you some of
+with the functions available in the <code>strollur</code> package. If
+you haven’t reviewed the “Getting Started” tutorial, we recommend you
+start there.</p>
 <div id="creating-a-new-dataset" class="section level2">
 <h2>Creating a new dataset</h2>
 <p>First let’s create an empty data set named my_data.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">new_dataset</span>(<span class="at">dataset_name =</span> <span class="st">&quot;my_data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">new_dataset</span>(<span class="at">dataset_name =</span> <span class="st">&quot;my_data&quot;</span>)</span></code></pre></div>
 </div>
 <div id="importing-data" class="section level2">
 <h2>Importing Data</h2>
 <p>The <em>strollur</em> package includes two functions to allow you to
 add sequence data.</p>
-<p><code>add()</code> - The add function allows you to add sequences,
-reports, metadata, and resource references to your data set.</p>
-<p><code>assign()</code> - The assign function allows assign sequence
-abundances, sequence classifications, bins, bin representative
+<p><code>strollur::add()</code> - The add function allows you to add
+sequences, reports, metadata, and resource references to your data
+set.</p>
+<p><code>strollur::assign()</code> - The assign function allows assign
+sequence abundances, sequence classifications, bins, bin representative
 sequences, bin classifications, samples and treatments to your data
 set.</p>
-<div id="add" class="section level3">
-<h3>add</h3>
-<p>The add function allows you to add sequences, reports, metadata, and
-resource references to your data set.</p>
+<div id="strolluradd" class="section level3">
+<h3>strollur::add</h3>
+<p>The <code>strollur::add()</code> function allows you to add
+sequences, reports, metadata, trees and resource references to your data
+set.</p>
 <div id="adding-fasta-sequences" class="section level4">
 <h4>Adding FASTA sequences</h4>
 <p>First, let’s add some <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/">FASTA</a> data.
-strollur has a function for reading FASTA files named
-<code>read_fasta()</code>. We will use it to read the sequence data into
-a data.frame.</p>
+<code>strollur</code> has a function for reading FASTA files named
+<code>strollur::read_fasta()</code>. We will use it to read the sequence
+data into a data.frame.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>fasta_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_fasta</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;final.fasta.gz&quot;</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">str</span>(fasta_data)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    2425 obs. of  2 variables:</span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr  &quot;M00967_43_000000000-A3JHG_1_2101_16474_12783&quot; &quot;M00967_43_000000000-A3JHG_1_1113_12711_3318&quot; &quot;M00967_43_000000000-A3JHG_1_2108_14707_9807&quot; &quot;M00967_43_000000000-A3JHG_1_1110_4126_16552&quot; ...</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;  $ sequence     : chr  &quot;TAC--GG-AG-GAT--GCG-A-G-C-G-T-T--AT-C-CGTGAT--TT-A-T-T--GG-GT--TT-A-AA-GG-GT-GC-G-TA-GGC-G-G-A-CA-G-T-T-AA-G-T-&quot;| __truncated__ &quot;TAC--GT-AG-GGG--GCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GGC-G-G-C-CA-T-G-C-AA-G-T-&quot;| __truncated__ &quot;TAC--GG-AG-GAT--GCG-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-C-T--GG-GT--GT-A-AA-GG-GA-GC-G-TA-GAC-G-G-C-GG-C-G-C-AA-G-T-&quot;| __truncated__ &quot;TAC--GG-AG-GAT--TCA-A-G-C-G-T-T--AT-C-CGG-AT--TT-A-T-T--GG-GT--TT-A-AA-GG-GT-GC-G-TA-GGC-G-G-G-CT-G-T-T-AA-G-T-&quot;| __truncated__ ...</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  data,</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">table =</span> fasta_data,</span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span></span>
@@ -387,29 +390,29 @@ a data.frame.</p>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns numseqs</span></span>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0    1.00</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   60.62</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  606.25</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1212.50</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1818.75</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.38</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   61.60</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  607.00</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1213.00</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1819.00</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.40</span></span>
 <span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 2425.00</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1212.64</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1213.00</span></span>
 <span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 2425</span></span></code></pre></div>
 <p>If you want to include a resource reference about your fasta data you
-can use the <code>new_reference</code> function and the reference
-parameter. strollur does not allow you to add sequences with the same
-name, so let’s use the <code>clear()</code> function to remove all data
-from our data set.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">clear</span>(data)</span>
+can use the <code>strollur::new_reference</code> function and the
+reference parameter. strollur does not allow you to add sequences with
+the same name, so let’s use the <code>strollur::clear()</code> function
+to remove all data from our data set.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">clear</span>(data)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 0</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>documentation_url <span class="ot">&lt;-</span> <span class="st">&quot;https://mothur.org/wiki/silva_reference_files/&quot;</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>method_url <span class="ot">&lt;-</span> <span class="st">&quot;https://mothur.org/blog/2024/SILVA-v138_2-reference-files/&quot;</span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>silva_resource <span class="ot">&lt;-</span> <span class="fu">new_reference</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>silva_resource <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">new_reference</span>(</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">vendor =</span> <span class="st">&quot;SILVA&quot;</span>,</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;silva.bacteria.fasta&quot;</span>,</span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  <span class="at">version =</span> <span class="st">&quot;1.38.1&quot;</span>,</span>
@@ -419,7 +422,7 @@ from our data set.</p>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="at">method_url =</span> method_url</span>
 <span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>)</span>
 <span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  data,</span>
 <span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>  <span class="at">table =</span> fasta_data,</span>
 <span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence&quot;</span>,</span>
@@ -430,13 +433,13 @@ from our data set.</p>
 <span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>data</span>
 <span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns numseqs</span></span>
 <span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0    1.00</span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   60.62</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  606.25</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1212.50</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1818.75</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.38</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   61.60</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  607.00</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1213.00</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1819.00</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.40</span></span>
 <span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 2425.00</span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1212.64</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1213.00</span></span>
 <span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 2425 </span></span>
@@ -447,14 +450,15 @@ from our data set.</p>
 <h4>Adding Custom Reports</h4>
 <p>You may want to add custom reports to your data set such as an
 contigs assembly report, chimera report or alignment report. You can do
-so by setting type = “report”. You must also provide a report_type.</p>
+so by setting <code>type = report</code>. You must also provide a
+report_type.</p>
 <p>This is also a good time to explain what the table_names parameter
 does for you. strollur expects the columns in custom reports to have
 specific names. If your table’s names differ from what strollur is
 expecting, you will see an error like that below.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>contigs_report <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_contigs_report.rds&quot;</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  data,</span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">table =</span> contigs_report,</span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;report&quot;</span>,</span>
@@ -462,9 +466,9 @@ expecting, you will see an error like that below.</p>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>)</span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co"># Error: The report must include a column containing sequence names.</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co"># sequence_names is not a named column in your report.</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co"># sequence_name is not a named column in your report.</span></span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co"># Called from: xdev_add_report(data, table = table, type = report_type,</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co"># Called from: strollur::xdev_add_report(data, table = table, type = report_type,</span></span>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#    sequence_name = table_names[[&quot;sequence_name&quot;]], verbose)</span></span></code></pre></div>
 <p>You can use the table_names parameter to tell strollur what the
 specific column is called in your custom report table. In the
@@ -494,7 +498,7 @@ contigs_report the <em>sequence_name</em> column is called
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
 <span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
 <span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>  data,</span>
 <span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>  <span class="at">table =</span> contigs_report,</span>
 <span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;report&quot;</span>,</span>
@@ -505,26 +509,28 @@ contigs_report the <em>sequence_name</em> column is called
 <span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a>data</span>
 <span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns numseqs</span></span>
 <span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0    1.00</span></span>
-<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   60.62</span></span>
-<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  606.25</span></span>
-<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1212.50</span></span>
-<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1818.75</span></span>
-<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.38</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   61.60</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  607.00</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0 1213.00</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0 1819.00</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 2364.40</span></span>
 <span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 2425.00</span></span>
-<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1212.64</span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0 1213.00</span></span>
 <span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
 <span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 2425 </span></span>
 <span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 1 </span></span>
 <span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 1</span></span></code></pre></div>
+<p>Note, when a report is tied to sequence names the report will be
+filtered to remove any sequences removed from the dataset.</p>
 </div>
 <div id="adding-metadata" class="section level4">
 <h4>Adding Metadata</h4>
 <p>Now that we have added our custom contigs assembly report, let’s
 learn how to add reports not tied to sequence names. We can add metadata
-to our data set by setting the type = “report”, report_type =
-“metadata”.</p>
+to our data set by setting the <code>type = report</code> and
+<code>report_type = metadata</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_metadata.rds&quot;</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">str</span>(metadata)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [19 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
@@ -537,7 +543,7 @@ to our data set by setting the type = “report”, report_type =
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
 <span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>  data,</span>
 <span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="at">table =</span> metadata,</span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;report&quot;</span>,</span>
@@ -548,12 +554,12 @@ to our data set by setting the type = “report”, report_type =
 <div id="adding-resource-references" class="section level4">
 <h4>Adding Resource References</h4>
 <p>We can add additional resource references to our data set by setting
-the type = “resource_reference”.</p>
+the <code>type = resource_reference</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>reference <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;references.csv&quot;</span>),</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">TRUE</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>)</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">add</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(</span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  data,</span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  <span class="at">table =</span> reference,</span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;resource_reference&quot;</span></span>
@@ -563,97 +569,119 @@ the type = “resource_reference”.</p>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; Added 1 resource references.</span></span></code></pre></div>
 </div>
+<div id="adding-trees" class="section level4">
+<h4>Adding Trees</h4>
+<p>Lastly, strollur allows you to add trees that relate your samples or
+sequences. Let’s look at some examples together.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>sample_tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;final.opti_mcc.jclass.ave.tre&quot;</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>sequence_tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;final.phylip.tre.gz&quot;</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(data, <span class="at">table =</span> sample_tree, <span class="at">type =</span> <span class="st">&quot;sample_tree&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; → Your dataset does not contain sample data, ignoring sample tree.</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">add</span>(data, <span class="at">table =</span> sequence_tree, <span class="at">type =</span> <span class="st">&quot;sequence_tree&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#| fig.alt: &gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#|   Plot of Miseq_SOP&#39;s sample relationship tree</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">bg =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>ape<span class="sc">::</span><span class="fu">plot.phylo</span>(sample_tree,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  <span class="at">no.margin =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">edge.color =</span> <span class="st">&quot;maroon&quot;</span>, <span class="at">tip.color =</span> <span class="st">&quot;navy&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">par</span>(old_par)</span></code></pre></div>
 </div>
-<div id="assign" class="section level3">
-<h3>assign</h3>
-<p>The <code>assign()</code> function allows assign sequence abundances,
-sequence classifications, bins, bin representative sequences, bin
-classifications, samples and treatments to your data set.</p>
+</div>
+<div id="strollurassign" class="section level3">
+<h3>strollur::assign</h3>
+<p>The <code>strollur::assign()</code> function allows assign sequence
+abundances, sequence classifications, bins, bin representative
+sequences, bin classifications, samples and treatments to your data
+set.</p>
 <div id="assigning-abundances" class="section level4">
 <h4>Assigning Abundances</h4>
 <p>After adding your FASTA sequences, you can assign abundance and
-sample data using the assign function with the type =
-“sequence_abundance”.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>abundance_table <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_abundance_by_sample.rds&quot;</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">str</span>(abundance_table)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [5,539 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:5539] &quot;M00967_43_000000000-A3JHG_1_2101_16474_12783&quot; &quot;M00967_43_000000000-A3JHG_1_1113_12711_3318&quot; &quot;M00967_43_000000000-A3JHG_1_2108_14707_9807&quot; &quot;M00967_43_000000000-A3JHG_1_1110_4126_16552&quot; ...</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;  $ abundance    : num [1:5539] 1 1 1 1 1 1 22 19 12 9 ...</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt;  $ sample       : chr [1:5539] &quot;F3D150&quot; &quot;F3D142&quot; &quot;F3D3&quot; &quot;F3D8&quot; ...</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt;  $ treatment    : chr [1:5539] &quot;Late&quot; &quot;Late&quot; &quot;Early&quot; &quot;Early&quot; ...</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt;   ..   names = col_character(),</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;   ..   abundances = col_double(),</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt;   ..   samples = col_character(),</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt;   ..   treatments = col_character()</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="fu">assign</span>(data, <span class="at">table =</span> abundance_table, <span class="at">type =</span> <span class="st">&quot;sequence_abundance&quot;</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence abundances.</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>data</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
+sample data using the assign function with the
+<code>type = sequence_abundance</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>abundance_table <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_abundance_by_sample.rds&quot;</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">str</span>(abundance_table)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [5,539 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:5539] &quot;M00967_43_000000000-A3JHG_1_2101_16474_12783&quot; &quot;M00967_43_000000000-A3JHG_1_1113_12711_3318&quot; &quot;M00967_43_000000000-A3JHG_1_2108_14707_9807&quot; &quot;M00967_43_000000000-A3JHG_1_1110_4126_16552&quot; ...</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;  $ abundance    : num [1:5539] 1 1 1 1 1 1 22 19 12 9 ...</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;  $ sample       : chr [1:5539] &quot;F3D150&quot; &quot;F3D142&quot; &quot;F3D3&quot; &quot;F3D8&quot; ...</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt;  $ treatment    : chr [1:5539] &quot;Late&quot; &quot;Late&quot; &quot;Early&quot; &quot;Early&quot; ...</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;   ..   names = col_character(),</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;   ..   abundances = col_double(),</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;   ..   samples = col_character(),</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;   ..   treatments = col_character()</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(data, <span class="at">table =</span> abundance_table, <span class="at">type =</span> <span class="st">&quot;sequence_abundance&quot;</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence abundances.</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>data</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2850.05</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28491.50</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56982.00</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.50</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.95</span></span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56982.00</span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 </div>
 <div id="assigning-bins" class="section level4">
 <h4>Assigning Bins</h4>
 <p>As you can see we now have abundances, samples and treatments added
-to the data set. Next, let’s assign the sequences to bins using type =
-“bin”. When you assign sequences to bins you must provide a
-<em>bin_type</em>. The bin_type is a tag of your choosing used to
-reference the bin clusters you are adding. Let’s add some <a href="https://en.wikipedia.org/wiki/Operational_taxonomic_unit">Operational
-Taxonomic Unit</a> clusters and set the bin_type = “otu”.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>bin_table <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_list_otu.rds&quot;</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">str</span>(bin_table)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [2,425 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt;  $ bin_name     : chr [1:2425] &quot;Otu001&quot; &quot;Otu001&quot; &quot;Otu001&quot; &quot;Otu001&quot; ...</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:2425] &quot;M00967_43_000000000-A3JHG_1_1111_20933_6700&quot; &quot;M00967_43_000000000-A3JHG_1_1113_17095_9759&quot; &quot;M00967_43_000000000-A3JHG_1_1114_22144_24942&quot; &quot;M00967_43_000000000-A3JHG_1_1112_5981_8948&quot; ...</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;   ..   otu_id = col_character(),</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;   ..   seq_id = col_character()</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="fu">assign</span>(data, <span class="at">table =</span> bin_table, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bins.</span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>data</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2849.08</span></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28490.75</span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56981.50</span></span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.25</span></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.93</span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56981.64</span></span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
-<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
-<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 531 </span></span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
+to the data set. Next, let’s assign the sequences to bins using
+<code>type = bin</code>. When you assign sequences to bins you must
+provide a <em>bin_type</em>. The bin_type is a tag of your choosing used
+to reference the bin clusters you are adding. Let’s add some <a href="https://en.wikipedia.org/wiki/Operational_taxonomic_unit">Operational
+Taxonomic Unit</a> clusters and set the <code>bin_type = otu</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>bin_table <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_list_otu.rds&quot;</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">str</span>(bin_table)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [2,425 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt;  $ bin_name     : chr [1:2425] &quot;Otu001&quot; &quot;Otu001&quot; &quot;Otu001&quot; &quot;Otu001&quot; ...</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:2425] &quot;M00967_43_000000000-A3JHG_1_1111_20933_6700&quot; &quot;M00967_43_000000000-A3JHG_1_1113_17095_9759&quot; &quot;M00967_43_000000000-A3JHG_1_1114_22144_24942&quot; &quot;M00967_43_000000000-A3JHG_1_1112_5981_8948&quot; ...</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt;   ..   otu_id = col_character(),</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt;   ..   seq_id = col_character()</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(data, <span class="at">table =</span> bin_table, <span class="at">type =</span> <span class="st">&quot;bin&quot;</span>, <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bins.</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>data</span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt;             starts ends nbases ambigs polymers numns   numseqs</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; Minimum:         1  375    249      0        3     0      1.00</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; 2.5%-tile:       1  375    252      0        4     0   2850.05</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; 25%-tile:        1  375    252      0        4     0  28491.50</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; Median:          1  375    253      0        4     0  56982.00</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; 75%-tile:        1  375    253      0        5     0  85472.50</span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; 97.5%-tile:      1  375    254      0        6     0 111113.95</span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; Maximum:         1  375    256      0        6     0 113963.00</span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; Mean:            1  375    252      0        4     0  56982.00</span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; Number of unique seqs: 2425 </span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt; Total number of seqs: 113963 </span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; Total number of samples: 19 </span></span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#&gt; Total number of treatments: 2 </span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co">#&gt; Total number of otus: 531 </span></span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="co">#&gt; Total number of resource references: 2 </span></span>
+<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a><span class="co">#&gt; Total number of custom reports: 2</span></span></code></pre></div>
 <p>You can see from the summary, we now have 531 otus in our
 dataset.</p>
 <p>Note, if you are importing data from packages that preprocess the
@@ -665,123 +693,104 @@ Sequence Variant</a> clusters or <em>asv</em> bins.</p>
 <h4>Assigning Taxonomic Classifications</h4>
 <p>Now that we have assigned our sequences to bins, let’s assign
 taxonomy to our sequences.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>sequence_classification_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_taxonomy</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="at">taxonomy =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.taxonomy.gz&quot;</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>)</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">str</span>(sequence_classification_data)</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [2,425 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:2425] &quot;M00967_43_000000000-A3JHG_1_2102_17714_13657&quot; &quot;M00967_43_000000000-A3JHG_1_2109_7813_4701&quot; &quot;M00967_43_000000000-A3JHG_1_1113_19457_3875&quot; &quot;M00967_43_000000000-A3JHG_1_1112_18411_17052&quot; ...</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt;  $ taxonomy     : chr [1:2425] &quot;Bacteria(100);Firmicutes(100);Clostridia(100);Clostridiales(100);Lachnospiraceae(99);Lachnospiraceae_unclassified(99);&quot; &quot;Bacteria(99);Firmicutes(94);Clostridia(93);Clostridiales(93);Lachnospiraceae(90);Lachnospiraceae_unclassified(90);&quot; &quot;Bacteria(100);Firmicutes(100);Clostridia(100);Clostridiales(100);Lachnospiraceae(100);Johnsonella(93);&quot; &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(98);\&quot;Bacteroidales\&quot;(98);\&quot;Porphyromonadaceae\&quot;(97);\&quot;Por&quot;| __truncated__ ...</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;   ..   X1 = col_character(),</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;   ..   X2 = col_character()</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="fu">assign</span>(</span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  data,</span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="at">table =</span> sequence_classification_data,</span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_taxonomy&quot;</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>)</span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence taxonomies.</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>sequence_classification_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur_taxonomy</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="at">taxonomy =</span> <span class="fu">strollur_example</span>(<span class="st">&quot;final.taxonomy.gz&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">str</span>(sequence_classification_data)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [2,425 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:2425] &quot;M00967_43_000000000-A3JHG_1_2102_17714_13657&quot; &quot;M00967_43_000000000-A3JHG_1_2109_7813_4701&quot; &quot;M00967_43_000000000-A3JHG_1_1113_19457_3875&quot; &quot;M00967_43_000000000-A3JHG_1_1112_18411_17052&quot; ...</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt;  $ taxonomy     : chr [1:2425] &quot;Bacteria(100);Firmicutes(100);Clostridia(100);Clostridiales(100);Lachnospiraceae(99);Lachnospiraceae_unclassified(99);&quot; &quot;Bacteria(99);Firmicutes(94);Clostridia(93);Clostridiales(93);Lachnospiraceae(90);Lachnospiraceae_unclassified(90);&quot; &quot;Bacteria(100);Firmicutes(100);Clostridia(100);Clostridiales(100);Lachnospiraceae(100);Johnsonella(93);&quot; &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(98);\&quot;Bacteroidales\&quot;(98);\&quot;Porphyromonadaceae\&quot;(97);\&quot;Por&quot;| __truncated__ ...</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt;   ..   X1 = col_character(),</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt;   ..   X2 = col_character()</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  data,</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  <span class="at">table =</span> sequence_classification_data,</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;sequence_taxonomy&quot;</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>)</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt; Assigned 2425 sequence taxonomies.</span></span></code></pre></div>
 <p>Note, when you assign taxonomy to sequences that are assigned to
 bins, strollur will automatically assign the bin taxonomies to be the
 consensus taxonomy of the sequences in the bins. You can also set bin
-taxonomies independently by setting the type = “bin_taxonomy”.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>otu_taxonomy_data <span class="ot">&lt;-</span> <span class="fu">read_mothur_cons_taxonomy</span>(<span class="fu">strollur_example</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="st">&quot;final.cons.taxonomy&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>))</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">str</span>(otu_taxonomy_data)</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [531 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt;  $ bin_name : chr [1:531] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; ...</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt;  $ abundance: num [1:531] 12288 8892 7794 7476 7450 ...</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt;  $ taxonomy : chr [1:531] &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);Barnesiella(100);&quot; ...</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;   ..   OTU = col_character(),</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;   ..   Size = col_double(),</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt;   ..   Taxonomy = col_character()</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="fu">assign</span>(</span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>  data,</span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>  <span class="at">table =</span> otu_taxonomy_data,</span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_taxonomy&quot;</span>,</span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>)</span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin taxonomies.</span></span></code></pre></div>
+taxonomies independently by setting the
+<code>type = bin_taxonomy</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>otu_taxonomy_data <span class="ot">&lt;-</span> strollur<span class="sc">::</span><span class="fu">read_mothur_cons_taxonomy</span>(<span class="fu">strollur_example</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="st">&quot;final.cons.taxonomy&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>))</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="fu">str</span>(otu_taxonomy_data)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [531 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt;  $ bin_name : chr [1:531] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; ...</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt;  $ abundance: num [1:531] 12288 8892 7794 7476 7450 ...</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;  $ taxonomy : chr [1:531] &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);\&quot;&quot;| __truncated__ &quot;Bacteria(100);\&quot;Bacteroidetes\&quot;(100);\&quot;Bacteroidia\&quot;(100);\&quot;Bacteroidales\&quot;(100);\&quot;Porphyromonadaceae\&quot;(100);Barnesiella(100);&quot; ...</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt;   ..   OTU = col_character(),</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt;   ..   Size = col_double(),</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt;   ..   Taxonomy = col_character()</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(</span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  data,</span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>  <span class="at">table =</span> otu_taxonomy_data,</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_taxonomy&quot;</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>  <span class="at">bin_type =</span> <span class="st">&quot;otu&quot;</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>)</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin taxonomies.</span></span></code></pre></div>
 </div>
 <div id="assigning-bin-representatives" class="section level4">
 <h4>Assigning Bin Representatives</h4>
 <p>strollur allows you to assign a bin representative sequences to the
 bins in your clusters. Let’s assign bin representatives to our
 <em>otu</em> bins.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>bin_reps <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_representative_sequences.rds&quot;</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">str</span>(bin_reps)</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [531 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt;  $ bin_name     : chr [1:531] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; ...</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:531] &quot;M00967_43_000000000-A3JHG_1_1108_14299_17220&quot; &quot;M00967_43_000000000-A3JHG_1_1106_22705_6123&quot; &quot;M00967_43_000000000-A3JHG_1_1101_15533_5293&quot; &quot;M00967_43_000000000-A3JHG_1_1105_25642_17588&quot; ...</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt;   ..   bin_names = col_character(),</span></span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt;   ..   sequence_names = col_character()</span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="fu">assign</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>  data,</span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  <span class="at">table =</span> bin_reps,</span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_representative&quot;</span></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>)</span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin representative sequences.</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>bin_reps <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_representative_sequences.rds&quot;</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">str</span>(bin_reps)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [531 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt;  $ bin_name     : chr [1:531] &quot;Otu001&quot; &quot;Otu002&quot; &quot;Otu003&quot; &quot;Otu004&quot; ...</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt;  $ sequence_name: chr [1:531] &quot;M00967_43_000000000-A3JHG_1_1108_14299_17220&quot; &quot;M00967_43_000000000-A3JHG_1_1106_22705_6123&quot; &quot;M00967_43_000000000-A3JHG_1_1101_15533_5293&quot; &quot;M00967_43_000000000-A3JHG_1_1105_25642_17588&quot; ...</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt;   ..   bin_names = col_character(),</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt;   ..   sequence_names = col_character()</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;problems&quot;)=&lt;pointer: 0x0&gt;</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  data,</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>  <span class="at">table =</span> bin_reps,</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;bin_representative&quot;</span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>)</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; Assigned 531 otu bin representative sequences.</span></span></code></pre></div>
 </div>
 <div id="assigning-treatments" class="section level4">
 <h4>Assigning Treatments</h4>
 <p>In our case the abundance_table included treatment assignments, but
-you can also assign samples to treatments by setting type =
-“treatment”.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>sample_assignments <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_sample_design.rds&quot;</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">str</span>(sample_assignments)</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [19 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt;  $ sample   : chr [1:19] &quot;F3D0&quot; &quot;F3D1&quot; &quot;F3D141&quot; &quot;F3D142&quot; ...</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt;  $ treatment: chr [1:19] &quot;Early&quot; &quot;Early&quot; &quot;Late&quot; &quot;Late&quot; ...</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;   ..   samples = col_character(),</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt;   ..   treatments = col_character()</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="fu">assign</span>(</span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  data,</span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="at">table =</span> sample_assignments,</span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;treatment&quot;</span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>)</span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; Assigned 19 samples to treatments.</span></span></code></pre></div>
-</div>
-</div>
-</div>
-<div id="sample-trees-and-sequence-trees" class="section level2">
-<h2>Sample Trees and Sequence Trees</h2>
-<p>Lastly, strollur allows you to add tree that relate your samples or
-sequences. Let’s look at some examples together.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>sample_tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;final.opti_mcc.jclass.ave.tre&quot;</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>sequence_tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;final.phylip.tre.gz&quot;</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>data<span class="sc">$</span><span class="fu">add_sample_tree</span>(sample_tree)</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>data<span class="sc">$</span><span class="fu">add_sequence_tree</span>(sequence_tree)</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#| fig.alt: &gt;</span></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#|   Plot of Miseq_SOP&#39;s sample relationship tree</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>old_par <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">bg =</span> <span class="st">&quot;white&quot;</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>ape<span class="sc">::</span><span class="fu">plot.phylo</span>(data<span class="sc">$</span><span class="fu">get_sample_tree</span>(),</span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="at">no.margin =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">edge.color =</span> <span class="st">&quot;maroon&quot;</span>, <span class="at">tip.color =</span> <span class="st">&quot;navy&quot;</span></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">par</span>(old_par)</span></code></pre></div>
+you can also assign samples to treatments by setting
+<code>type = treatment</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>sample_assignments <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">strollur_example</span>(<span class="st">&quot;miseq_sample_design.rds&quot;</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">str</span>(sample_assignments)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; spc_tbl_ [19 × 2] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt;  $ sample   : chr [1:19] &quot;F3D0&quot; &quot;F3D1&quot; &quot;F3D141&quot; &quot;F3D142&quot; ...</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;  $ treatment: chr [1:19] &quot;Early&quot; &quot;Early&quot; &quot;Late&quot; &quot;Late&quot; ...</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;spec&quot;)=</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt;   .. cols(</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt;   ..   samples = col_character(),</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt;   ..   treatments = col_character()</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt;   .. )</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>strollur<span class="sc">::</span><span class="fu">assign</span>(</span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>  data,</span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>  <span class="at">table =</span> sample_assignments,</span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;treatment&quot;</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>)</span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; Assigned 19 samples to treatments.</span></span></code></pre></div>
 <p>Thanks for following along. To learn more about the functions used to
 access the data in your data set, take a look at the <a href="https://mothur.org/strollur/articles/Accessing_Dataset.html">Accessing
 Data</a> tutorial.</p>
+</div>
+</div>
 </div>
 
 

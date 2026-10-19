@@ -2,33 +2,35 @@
 % Please edit documentation in R/copy_dataset.R
 \name{copy_dataset}
 \alias{copy_dataset}
-\title{copy_dataset}
+\title{Create a new
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
+from an existing dataset.}
 \usage{
 copy_dataset(data)
 }
 \arguments{
 \item{data, }{a
-\href{https://mothur.org/strollur/reference/strollur.html}{strollur} object}
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}}
 }
 \value{
 a
-  \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 }
 \description{
 Create a new
-\href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 from an existing dataset.
 }
 \examples{
 
-miseq <- miseq_sop_example()
+miseq <- strollur::miseq_sop_example()
 
 # to create a new dataset that is a copy of miseq
 
-data <- copy_dataset(miseq)
+data <- strollur::copy_dataset(miseq)
 
 }
 \seealso{
 The 'new' method in the
-  \href{https://mothur.org/strollur/reference/strollur.html}{strollur} class
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 }

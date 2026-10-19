@@ -99,27 +99,33 @@ Rcpp::DataFrame Report::getReport(const set<string>& datasetNames) {
 
     Rcpp::DataFrame data = Rcpp::DataFrame::create();
 
-    pruneReport(datasetNames);
-
     if (hasReport) {
+
+        if (!sequence_name.empty()) {
+            pruneReport(datasetNames);
+        }
         // assemble dataframe in order
         for (auto itCol = columnNames.begin(); itCol != columnNames.end(); itCol++) {
             bool foundNext = false;
 
             if (hasStr) {
-                foundNext = addNextColumn(data, strColumns, itCol->first);
+                foundNext = addNextColumn(data, strColumns,
+                                          itCol->first, itCol->second);
             }
 
             if (hasInt && !foundNext) {
-                foundNext = addNextColumn(data, intColumns, itCol->first);
+                foundNext = addNextColumn(data, intColumns,
+                                          itCol->first, itCol->second);
             }
 
             if (hasNum && !foundNext) {
-                foundNext = addNextColumn(data, numColumns, itCol->first);
+                foundNext = addNextColumn(data, numColumns,
+                                          itCol->first, itCol->second);
             }
 
             if (hasLog && !foundNext) {
-                foundNext = addNextColumn(data, logColumns, itCol->first);
+                foundNext = addNextColumn(data, logColumns,
+                                          itCol->first, itCol->second);
             }
         }
 

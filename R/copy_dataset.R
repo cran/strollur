@@ -1,23 +1,25 @@
-#' @title copy_dataset
+#' @title Create a new
+#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
+#' from an existing dataset.
 #' @description
 #' Create a new
-#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' from an existing dataset.
 #'
 #' @param data, a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' @examples
 #'
-#' miseq <- miseq_sop_example()
+#' miseq <- strollur::miseq_sop_example()
 #'
 #' # to create a new dataset that is a copy of miseq
 #'
-#' data <- copy_dataset(miseq)
+#' data <- strollur::copy_dataset(miseq)
 #'
 #' @returns a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' @seealso The 'new' method in the
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} class
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' @export
 copy_dataset <- function(data) {
   if (!inherits(data, "strollur")) {

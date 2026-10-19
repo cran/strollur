@@ -14,23 +14,21 @@ if (!requireNamespace("phyloseq", quietly = TRUE)) {
 library(strollur)
 
 ## -----------------------------------------------------------------------------
-# Using the phyloseq example data
-phylo_object <- readRDS(strollur_example("GlobalPatterns.RDS"))
-rdata_object <- read_phyloseq(phylo_object)
-rdata_object
+phyloseq_object <- readRDS(strollur_example("GlobalPatterns.RDS"))
+class(phyloseq_object)
+strollur_object <- strollur::read_phyloseq(phyloseq_object)
+class(strollur_object)
 
 ## ----rdataset_functions-------------------------------------------------------
-count(rdata_object, type = "sample")
-head(names(rdata_object, type = "sequence"))
-head(abundance(rdata_object, type = "sequence"))
+strollur::count(strollur_object, type = "sample")
+head(strollur::names(strollur_object, type = "sequence"))
+head(strollur::abundance(strollur_object, type = "sequence"))
 
 ## ----write_phyloseq-----------------------------------------------------------
-phyloseq_object <- write_phyloseq(rdata_object)
+phyloseq_object <- strollur::write_phyloseq(strollur_object)
 phyloseq_object
 
-
-# With the miseq example data
-miseq <- miseq_sop_example()
-miseq_phyloseq <- write_phyloseq(miseq)
+miseq <- strollur::miseq_sop_example()
+miseq_phyloseq <- strollur::write_phyloseq(miseq)
 miseq_phyloseq
 

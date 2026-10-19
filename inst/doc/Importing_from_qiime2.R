@@ -15,20 +15,19 @@ qza_files <- c(
   strollur_example("rooted-tree.qza")
 )
 
-data <- read_qiime2(
+data <- strollur::read_qiime2(
   qza = qza_files,
   metadata = strollur_example("sample_metadata.tsv"),
   dataset_name = "qiime_moving_pictures"
 )
-
-## -----------------------------------------------------------------------------
 data
 
 ## -----------------------------------------------------------------------------
-my_data <- new_dataset(dataset_name = "my_data")
+my_data <- strollur::new_dataset(dataset_name = "my_data")
 
 ## -----------------------------------------------------------------------------
-fasta_artifact <- unpack_qiime2_artifact(qza = strollur_example("rep_seqs.qza"))
+fasta_artifact <-
+  strollur::unpack_qiime2_artifact(qza = strollur_example("rep_seqs.qza"))
 
 ## -----------------------------------------------------------------------------
 fasta_file <- file.path(
@@ -38,7 +37,7 @@ fasta_file <- file.path(
 fasta_data <- strollur::read_fasta(fasta = fasta_file)
 
 ## -----------------------------------------------------------------------------
-add(
+strollur::add(
   my_data,
   table = fasta_data,
   type = "sequence"
@@ -48,16 +47,16 @@ add(
 unlink(file.path(getwd(), "rep_seqs"), recursive = TRUE)
 
 ## -----------------------------------------------------------------------------
-abundance <- read_qiime2_feature_table(strollur_example("table.qza"))
+abundance <- strollur::read_qiime2_feature_table(strollur_example("table.qza"))
 
-assign(
+strollur::assign(
   my_data,
   table = abundance$data,
   type = "sequence_abundance",
   table_names = list(sequence_name = "bin_name")
 )
 
-assign(
+strollur::assign(
   my_data,
   table = abundance$data,
   type = "bin",
@@ -68,9 +67,9 @@ assign(
 my_data
 
 ## -----------------------------------------------------------------------------
-taxonomy <- read_qiime2_taxonomy(strollur_example("taxonomy.qza"))
+taxonomy <- strollur::read_qiime2_taxonomy(strollur_example("taxonomy.qza"))
 
-assign(
+strollur::assign(
   my_data,
   table = taxonomy$data,
   type = "sequence_taxonomy",
@@ -78,7 +77,7 @@ assign(
 )
 
 ## -----------------------------------------------------------------------------
-tree_artifact <- unpack_qiime2_artifact(
+tree_artifact <- strollur::unpack_qiime2_artifact(
   qza =
     strollur_example("rooted-tree.qza")
 )
@@ -91,20 +90,22 @@ tree_file <- file.path(
 sequence_tree <- ape::read.tree(tree_file)
 
 ## -----------------------------------------------------------------------------
-my_data$add_sequence_tree(tree = sequence_tree)
+strollur::add(data, table = sequence_tree, type = "sequence_tree")
 
 ## -----------------------------------------------------------------------------
 unlink(file.path(getwd(), "rooted-tree"), recursive = TRUE)
 
 ## -----------------------------------------------------------------------------
-metadata <- read_qiime2_metadata(
+metadata <- strollur::read_qiime2_metadata(
   metadata =
     strollur_example("sample_metadata.tsv")
 )
 
 ## -----------------------------------------------------------------------------
-add(my_data, table = metadata, type = "report", report_type = "metadata")
-
-## -----------------------------------------------------------------------------
+strollur::add(my_data,
+  table = metadata,
+  type = "report",
+  report_type = "metadata"
+)
 my_data
 

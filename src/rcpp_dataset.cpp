@@ -7,18 +7,18 @@
 #include "dataset.h"
 
 /******************************************************************************/
-//' @title clear
+//' @title Clear data from a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @description
-//' Clear data from a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' Clear data from a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //'
-//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //'
 //' @examples
 //'
 //' data <- miseq_sop_example()
 //' clear(data)
 //'
-//' @return an updated \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' @return an updated \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @export
 //[[Rcpp::export]]
 Rcpp::Environment clear(Rcpp::Environment& data) {
@@ -32,11 +32,11 @@ Rcpp::Environment clear(Rcpp::Environment& data) {
     return data;
 }
 /******************************************************************************/
-//' @title get_bin_types
+//' @title Get bin table types of a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @description
-//' Get bin table types of a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' Get bin table types of a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //'
-//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @examples
 //'
 //' data <- miseq_sop_example()
@@ -50,11 +50,11 @@ vector<string> get_bin_types(Rcpp::Environment data) {
      return d.get()->getBinTypes();
 }
 /******************************************************************************/
-//' @title has_sample
+//' @title Determine if a given sample is in a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @description
-//' Determine if a given sample is in a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' Determine if a given sample is in a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //'
-//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object.
+//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}.
 //' @param sample a string containing the name of a sample.
 //' @examples
 //'
@@ -70,11 +70,11 @@ bool has_sample(Rcpp::Environment data, string sample) {
      return d.get()->hasSample(sample);
 }
 /******************************************************************************/
-//' @title has_sequence_strings
+//' @title Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains sequence nucleotide strings.
 //' @description
-//' Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object contains sequence nucleotide strings.
+//' Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains sequence nucleotide strings.
 //'
-//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object.
+//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}.
 //' @examples
 //'
 //' data <- miseq_sop_example()
@@ -89,11 +89,11 @@ bool has_sequence_strings(Rcpp::Environment data) {
      return d.get()->hasSeqs();
 }
 /******************************************************************************/
-//' @title is_aligned
+//' @title Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains aligned sequences.
 //' @description
-//' Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object contains aligned sequences.
+//' Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains aligned sequences.
 //'
-//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+//' @param data, a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 //' @examples
 //'
 //' dataset <- miseq_sop_example()

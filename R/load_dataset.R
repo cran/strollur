@@ -1,17 +1,19 @@
-#' @title Load strollur object from .rds file
+#' @title Load a
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
+#'   from a file.
 #' @description The load_dataset function will create a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #'   from an RDS file.
 #'
 #' @param file a string containing the .rds file name.
 #' @examples
 #'
-#' data <- load_dataset(strollur_example("miseq_sop.rds"))
+#' data <- strollur::load_dataset(strollur_example("miseq_sop.rds"))
 #' data
 #'
 #' @seealso [save_dataset()]
 #' @return a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' @export
 load_dataset <- function(file) {
   if (!file.exists(file)) {
@@ -38,6 +40,11 @@ load_dataset <- function(file) {
         current_version, ". Converting and importing."
       )
       cli::cli_alert(message)
+    } else if (.import_compatible(dataset_version, deserialize = TRUE)) {
+      xint_deserialize_dobject(dataset)
+      table <- export_dataset(dataset)
+      dataset <- import_dataset(table)
+      return(dataset)
     } else {
       message <- paste0(
         "Unable to create 'strollur' object. ",

@@ -21,7 +21,7 @@ if (!requireNamespace("ggplot2", quietly = TRUE) ||
 }
 
 ## -----------------------------------------------------------------------------
-strollur_data <- read_mothur(
+strollur_data <- strollur::read_mothur(
   fasta = strollur_example("final.fasta.gz"),
   count = strollur_example("final.count_table.gz"),
   design = strollur_example("mouse.time.design"),
@@ -34,14 +34,15 @@ strollur_data <- read_mothur(
 )
 
 metadata <- readRDS(strollur_example("miseq_metadata.rds"))
-add(strollur_data, table = metadata, type = "report", report_type = "metadata")
+strollur::add(strollur_data, table = metadata,
+              type = "report", report_type = "metadata")
 
 ## ----eval = FALSE-------------------------------------------------------------
-# database_reference <- build_kmer_database(trainset9_pds)
-# classify_sequences(strollur_data, database_reference)
+# database_reference <- phylotypr::build_kmer_database(trainset9_pds)
+# phylotypr::classify_sequences(strollur_data, database_reference)
 
 ## -----------------------------------------------------------------------------
-phyloseq_data <- write_phyloseq(strollur_data)
+phyloseq_data <- strollur::write_phyloseq(strollur_data)
 phyloseq_data
 
 alpha_div <- phyloseq::estimate_richness(phyloseq_data,
@@ -51,11 +52,11 @@ alpha_div <- phyloseq::estimate_richness(phyloseq_data,
 metadata <- data.frame(sample_data(phyloseq_data))
 shannon_plot_data <- cbind(metadata, Shannon = alpha_div$Shannon)
 
-ps_rel <- transform_sample_counts(
+ps_rel <- phyloseq::transform_sample_counts(
   phyloseq_data,
   function(x) x / sum(x)
 )
-pcoa_ord <- ordinate(ps_rel, method = "PCoA", distance = "bray")
+pcoa_ord <- phyloseq::ordinate(ps_rel, method = "PCoA", distance = "bray")
 
 ## -----------------------------------------------------------------------------
 ggplot2::ggplot(shannon_plot_data, aes(
@@ -80,7 +81,7 @@ ggplot2::ggplot(shannon_plot_data, aes(
   )
 
 ## -----------------------------------------------------------------------------
-pcoa_df <- plot_ordination(ps_rel, pcoa_ord, justDF = TRUE)
+pcoa_df <- phyloseq::plot_ordination(ps_rel, pcoa_ord, justDF = TRUE)
 
 ggplot2::ggplot(pcoa_df, aes(x = Axis.1, y = Axis.2, color = treatment)) +
   geom_point(size = 4, alpha = 0.8) +

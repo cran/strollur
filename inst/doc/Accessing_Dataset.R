@@ -6,16 +6,16 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-miseq <- miseq_sop_example()
+miseq <- strollur::miseq_sop_example()
 
 ## -----------------------------------------------------------------------------
 miseq
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "dataset")
+strollur::names(miseq, type = "dataset")
 
 ## -----------------------------------------------------------------------------
-all_sequences <- names(
+all_sequences <- strollur::names(
   miseq,
   type = "sequence",
   distinct = FALSE
@@ -24,7 +24,7 @@ length(all_sequences)
 head(all_sequences, n = 5)
 
 ## -----------------------------------------------------------------------------
-include_f3d0 <- names(
+include_f3d0 <- strollur::names(
   miseq,
   type = "sequence",
   samples = c("F3D0"),
@@ -34,7 +34,7 @@ length(include_f3d0)
 head(include_f3d0, n = 5)
 
 ## -----------------------------------------------------------------------------
-exclusive_f3d0 <- names(
+exclusive_f3d0 <- strollur::names(
   miseq,
   type = "sequence",
   samples = c("F3D0"),
@@ -44,7 +44,7 @@ length(exclusive_f3d0)
 head(exclusive_f3d0, n = 5)
 
 ## -----------------------------------------------------------------------------
-otu_bins <- names(
+otu_bins <- strollur::names(
   miseq,
   type = "bin",
   bin_type = "otu"
@@ -53,7 +53,7 @@ length(otu_bins)
 head(otu_bins, n = 5)
 
 ## -----------------------------------------------------------------------------
-include_f3d0 <- names(
+include_f3d0 <- strollur::names(
   miseq,
   type = "bin",
   samples = c("F3D0"),
@@ -63,7 +63,7 @@ length(include_f3d0)
 head(include_f3d0, n = 5)
 
 ## -----------------------------------------------------------------------------
-exclusive_f3d0 <- names(
+exclusive_f3d0 <- strollur::names(
   miseq,
   type = "bin",
   samples = c("F3D0"),
@@ -73,30 +73,30 @@ length(exclusive_f3d0)
 head(exclusive_f3d0, n = 5)
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "sample")
+strollur::names(miseq, type = "sample")
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "treatment")
+strollur::names(miseq, type = "treatment")
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "report")
+strollur::names(miseq, type = "report")
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "sequence",
   distinct = FALSE
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "sequence",
   distinct = TRUE
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "sequence",
   samples = c("F3D0"),
@@ -104,7 +104,7 @@ count(
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "sequence",
   samples = c("F3D0"),
@@ -112,14 +112,14 @@ count(
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "bin",
   bin_type = "otu"
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "bin",
   bin_type = "otu",
@@ -128,7 +128,7 @@ count(
 )
 
 ## -----------------------------------------------------------------------------
-count(
+strollur::count(
   miseq,
   type = "bin",
   bin_type = "otu",
@@ -137,13 +137,13 @@ count(
 )
 
 ## -----------------------------------------------------------------------------
-count(miseq, type = "sample")
+strollur::count(miseq, type = "sample")
 
 ## -----------------------------------------------------------------------------
-count(miseq, type = "treatment")
+strollur::count(miseq, type = "treatment")
 
 ## -----------------------------------------------------------------------------
-sequence_abundance <- abundance(
+sequence_abundance <- strollur::abundance(
   miseq,
   type = "sequence",
   by_sample = FALSE
@@ -151,7 +151,7 @@ sequence_abundance <- abundance(
 head(sequence_abundance, n = 10)
 
 ## -----------------------------------------------------------------------------
-sequence_abundance_by_sample <- abundance(
+sequence_abundance_by_sample <- strollur::abundance(
   miseq,
   type = "sequence",
   by_sample = TRUE
@@ -159,7 +159,7 @@ sequence_abundance_by_sample <- abundance(
 head(sequence_abundance_by_sample, n = 10)
 
 ## -----------------------------------------------------------------------------
-bin_abundance <- abundance(
+bin_abundance <- strollur::abundance(
   miseq,
   type = "bin",
   bin_type = "otu",
@@ -168,7 +168,7 @@ bin_abundance <- abundance(
 head(bin_abundance, n = 10)
 
 ## -----------------------------------------------------------------------------
-bin_abundance_by_sample <- abundance(
+bin_abundance_by_sample <- strollur::abundance(
   miseq,
   type = "bin",
   bin_type = "otu",
@@ -177,37 +177,37 @@ bin_abundance_by_sample <- abundance(
 head(bin_abundance_by_sample, n = 10)
 
 ## -----------------------------------------------------------------------------
-abundance(
+strollur::abundance(
   miseq,
   type = "sample"
 )
 
 ## -----------------------------------------------------------------------------
-abundance(miseq, type = "treatment")
+strollur::abundance(miseq, type = "treatment")
 
 ## -----------------------------------------------------------------------------
-fasta_report <- report(
+fasta_report <- strollur::report(
   miseq,
   type = "fasta"
 )
 head(fasta_report, n = 5)
 
 ## -----------------------------------------------------------------------------
-sequence_report <- report(
+sequence_report <- strollur::report(
   miseq,
   type = "sequence"
 )
 head(sequence_report, n = 5)
 
 ## -----------------------------------------------------------------------------
-sequence_classification <- report(
+sequence_classification <- strollur::report(
   miseq,
   type = "sequence_taxonomy"
 )
 head(sequence_classification, n = 10)
 
 ## -----------------------------------------------------------------------------
-bin_classification <- report(
+bin_classification <- strollur::report(
   miseq,
   type = "bin_taxonomy",
   bin_type = "otu"
@@ -215,7 +215,7 @@ bin_classification <- report(
 head(bin_classification, n = 10)
 
 ## -----------------------------------------------------------------------------
-sequence_bin_assignments <- report(
+sequence_bin_assignments <- strollur::report(
   miseq,
   type = "sequence_bin_assignment",
   bin_type = "otu"
@@ -223,14 +223,14 @@ sequence_bin_assignments <- report(
 head(sequence_bin_assignments, n = 10)
 
 ## -----------------------------------------------------------------------------
-sample_treatment_assignments <- report(
+sample_treatment_assignments <- strollur::report(
   miseq,
   type = "sample_assignment"
 )
 head(sample_treatment_assignments, n = 5)
 
 ## -----------------------------------------------------------------------------
-otu_bin_representatives <- report(
+otu_bin_representatives <- strollur::report(
   miseq,
   type = "bin_representative",
   bin_type = "otu"
@@ -238,61 +238,69 @@ otu_bin_representatives <- report(
 head(otu_bin_representatives, n = 5)
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "report")
+strollur::names(miseq, type = "report")
 
 ## -----------------------------------------------------------------------------
-contigs_assembly_report <- report(
+contigs_assembly_report <- strollur::report(
   miseq,
   type = "contigs_report"
 )
 head(contigs_assembly_report, n = 5)
 
 ## -----------------------------------------------------------------------------
-metadata <- report(
+metadata <- strollur::report(
   miseq,
   type = "metadata"
 )
 head(metadata, n = 5)
 
 ## -----------------------------------------------------------------------------
-report(
+strollur::report(
   miseq,
   type = "resource_reference"
 )
 
 ## -----------------------------------------------------------------------------
-report(
+sequence_tree <- strollur::report(
+  miseq,
+  type = "sequence_tree"
+)
+
+## -----------------------------------------------------------------------------
+sample_tree <- strollur::report(
+  miseq,
+  type = "sample_tree"
+)
+
+#| fig.alt: >
+#|   Plot of Miseq_SOP's sample relationship tree
+old_par <- par(bg = "white")
+ape::plot.phylo(sample_tree,
+  no.margin = TRUE,
+  cex = 0.5, edge.color = "maroon", tip.color = "navy"
+)
+par(old_par)
+
+## -----------------------------------------------------------------------------
+strollur::report(
   miseq,
   type = "sequence_scrap"
 )
-report(
+strollur::report(
   miseq,
   type = "bin_scrap"
 )
 
 ## -----------------------------------------------------------------------------
-names(miseq, type = "report")
+strollur::names(miseq, type = "report")
 
 ## -----------------------------------------------------------------------------
-summary(
+strollur::summary(
   miseq,
   type = "report",
   report_type = "contigs_report"
 )
 
 ## -----------------------------------------------------------------------------
-summary(miseq, type = "scrap")
-
-## -----------------------------------------------------------------------------
-miseq_sequence_tree <- miseq$get_sequence_tree()
-miseq_sample_tree <- miseq$get_sample_tree()
-
-#| fig.alt: >
-#|   Plot of Miseq_SOP's sample relationship tree
-old_par <- par(bg = "white")
-ape::plot.phylo(miseq_sample_tree,
-  no.margin = TRUE,
-  cex = 0.5, edge.color = "maroon", tip.color = "navy"
-)
-par(old_par)
+strollur::summary(miseq, type = "scrap")
 

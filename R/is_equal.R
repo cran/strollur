@@ -1,21 +1,23 @@
-#' @title is_equal
+#' @title Determine if two
+#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}s
+#' are equal.
 #' @description
 #' Determine if two
-#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur} objects
+#' \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}s
 #' are equal.
 #'
 #' @param data, a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #' @param data2, a
-#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+#'   \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 #'
 #' @examples
 #'
-#' miseq <- miseq_sop_example()
+#' miseq <- strollur::miseq_sop_example()
 #'
-#' data <- copy_dataset(miseq)
+#' data <- strollur::copy_dataset(miseq)
 #'
-#' is_equal(miseq, data)
+#' strollur::is_equal(miseq, data)
 #'
 #' @returns a logical
 #' @export

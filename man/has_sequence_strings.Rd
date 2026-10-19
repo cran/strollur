@@ -2,19 +2,19 @@
 % Please edit documentation in R/RcppExports.R
 \name{has_sequence_strings}
 \alias{has_sequence_strings}
-\title{has_sequence_strings}
+\title{Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains sequence nucleotide strings.}
 \usage{
 has_sequence_strings(data)
 }
 \arguments{
-\item{data, }{a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object.}
+\item{data, }{a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}.}
 }
 \value{
 boolean indicating whether the dataset has sequence nucleotide
 strings.
 }
 \description{
-Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object contains sequence nucleotide strings.
+Determine if a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object} contains sequence nucleotide strings.
 }
 \examples{
 

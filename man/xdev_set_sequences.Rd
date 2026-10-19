@@ -2,7 +2,8 @@
 % Please edit documentation in R/RcppExports.R
 \name{xdev_set_sequences}
 \alias{xdev_set_sequences}
-\title{xdev_set_sequences}
+\title{Set neucleotide sequence string in a
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}}
 \usage{
 xdev_set_sequences(
   data,
@@ -12,33 +13,33 @@ xdev_set_sequences(
 )
 }
 \arguments{
-\item{data, }{a \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object}
+\item{data}{a \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}}
 
-\item{sequence_names, }{a vector of strings containing sequence names}
+\item{sequence_names}{a vector of strings containing sequence names}
 
-\item{sequences, }{a vector of strings containing sequence nucleotide strings}
+\item{sequences}{a vector of strings containing sequence nucleotide strings}
 
-\item{comments, }{a vector of strings containing sequence comments.
+\item{comments}{a vector of strings containing sequence comments.
 (Optional)}
 }
 \value{
-an updated \href{https://mothur.org/strollur/reference/strollur.html}{strollur} object
+an updated \href{https://mothur.org/strollur/reference/strollur.html}{strollur object}
 }
 \description{
 Designed with package integration in mind, the set sequences function allows
 you to change the nucleotide strings of sequences in a
-\href{https://mothur.org/strollur/reference/strollur.html}{strollur} object. For example, set_sequences may be used
+\href{https://mothur.org/strollur/reference/strollur.html}{strollur object}. For example, set_sequences may be used
 after alignment to overwrite the unaligned sequences with aligned sequences.
 }
 \examples{
 
-data <- new_dataset(dataset_name = "my_dataset")
+data <- strollur::new_dataset(dataset_name = "my_dataset")
 
-xdev_add_sequences(data = data,
+strollur::xdev_add_sequences(data,
               table = data.frame(sequence_name = c("seq1", "seq2",
                                                   "seq3", "seq4")))
 
-xdev_set_sequences(data = data,
+strollur::xdev_set_sequences(data,
                    sequence_names = c("seq1", "seq2","seq3", "seq4"),
                    sequences = c("ATTGC", "ACTGC", "AGTGC", "TTTGC"))
 
